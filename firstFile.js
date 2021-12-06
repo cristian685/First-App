@@ -2,7 +2,7 @@
 function sum1() {
     //code
     this // this din functie
-
+return (a+b);
 }
 
 const some = () => {
