@@ -1,10 +1,9 @@
-import './App.css';
-import Products from './view/Products';
+import Login from './view/Login';
 
 function App() {
   return (
     <div className="App">
-        <Products />
+        <Login />
     </div>
   );
 }
