@@ -1,15 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import Products from './view/Products';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       Hello wordl
-      </header>
+        <Products />
     </div>
   );
 }
+
+
 
 export default App;
 
