@@ -6,6 +6,7 @@ import { BrowserRouter ,Route,Routes } from "react-router-dom";
 import ForgotPassword from "./components/ForgotPassword";
 import SingUp from"./views/SingUp"
 import About from "./views/About"
+
 function App() {
    return (
        <BrowserRouter>

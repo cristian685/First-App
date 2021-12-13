@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../Config/firebaseConfig";
+
+
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 
 function Copyright() {
     return (
@@ -46,8 +55,55 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function SignUp() {
     const classes = useStyles();
+
+    const [userCreateObj, setUserCreateObj] = useState({});
+
+    const handleCreateChange = type => event => {
+        setUserCreateObj({
+            ...userCreateObj,
+            [type]: event.target.value
+        })
+
+    }
+
+    const [open, setOpen] = React.useState(false);
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    }
+
+    const handleCreateClick = async () => {
+
+        const {email, password} = userCreateObj;
+        try {
+            const createdUser = await createUserWithEmailAndPassword(auth, email, password)
+            setOpen(true);
+            console.log(createdUser);
+
+
+
+        } catch (error) {
+            setOpen(true);
+            console.log(error);
+
+            // Tema sa afisati un mesaj ca userul exista Snackbar
+        }
+    }
+
+     const henderSubmit=(event) => {
+        event.preventDefault();
+
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -59,7 +115,7 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={henderSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -93,6 +149,7 @@ export default function SignUp() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                onChange={handleCreateChange('email')}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -105,6 +162,7 @@ export default function SignUp() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                onChange={handleCreateChange('password')}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -115,6 +173,7 @@ export default function SignUp() {
                         </Grid>
                     </Grid>
                     <Button
+                        onClick={handleCreateClick}
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -123,6 +182,7 @@ export default function SignUp() {
                     >
                         Sign Up
                     </Button>
+
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="login" variant="body2">
@@ -135,6 +195,14 @@ export default function SignUp() {
             <Box mt={5}>
                 <Copyright />
             </Box>
+            <Stack spacing={2} sx={{width: '100%'}}>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                        This is a success message!
+                    </Alert>
+                </Snackbar>
+            </Stack>
         </Container>
+
     );
 }

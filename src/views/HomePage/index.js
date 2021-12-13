@@ -45,10 +45,10 @@ export default function ButtonAppBar() {
                      buttonStyle="btn--primary--outline"
                      buttonSize="btn--large"
             >
-                btn1
+                btn2
             </Button2>
             <Button2 variant="contained" color="primary" disableElevation>
-                btn2
+                btn1
             </Button2>
         </header>
         </div>
