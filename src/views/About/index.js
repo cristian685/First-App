@@ -1,11 +1,11 @@
 
 import React, {useContext, useEffect, useState} from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+
+import { CssBaseline, Typography, Container } from '@mui/material'
+
 import {UserContext} from "../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
-import {database} from "../../Config/firebaseConfig";
+import {database} from "../../config/firebaseConfig";
 
 export default function SimpleContainer() {
 

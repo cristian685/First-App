@@ -1,18 +1,12 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from "@material-ui/core/Button";
+import React, { useState } from 'react';
+import { Box, Button, Container, Typography, TextField } from '@mui/material';
+
 import SendIcon from '@mui/icons-material/Send';
-import Container from "@material-ui/core/Container";
-import Typography from "@mui/material/Typography";
-import {TextField} from "@material-ui/core";
 import {sendPasswordResetEmail} from 'firebase/auth'
-import {auth} from "../../Config/firebaseConfig";
-import {useState} from "react";
+
+import { auth } from "../../config/firebaseConfig";
+
 import SnackbarCustom from "../../components/SnackbarCustom";
-
-
-
-
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
