@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import MuiAlert from '@mui/material/Alert';
-import {Snackbar} from "@material-ui/core";
+import { Snackbar } from "@mui/material";
 import {useEffect} from "react";
 
 export const SET_SNACKBAR = "teamly/settings/SET_SNACKBAR";

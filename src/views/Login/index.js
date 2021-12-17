@@ -8,13 +8,13 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { LockOutlined } from '@mui/icons-material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useContext, useState} from "react";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {auth} from "../../Config/firebaseConfig";
+import {auth} from "../../config/firebaseConfig";
 import {
      onAuthStateChanged
  } from 'firebase/auth'
@@ -104,7 +104,7 @@ export default function SignIn() {
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                        <LockOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in

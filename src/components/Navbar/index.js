@@ -1,67 +1,30 @@
 import React, {useState, useContext } from 'react';
+import { NavLink, Outlet } from "react-router-dom";
+
+
+import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { NavLink } from "react-router-dom";
 
 import { UserContext } from '../../context/UserContext'
 import { ThemeContext } from '../../context/ThemeContext'
 
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import {Menu, KeyboardArrowRight, Outlet} from '@mui/icons-material';
-import {Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
 
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    IconButton,
+    Typography,
+    Button,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Tooltip
+} from '@mui/material'
 
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
+import { Menu, KeyboardArrowRight } from '@mui/icons-material';
 
 const useStyles = makeStyles({
     active: {
@@ -121,6 +84,7 @@ function Navbar() {
                 </List>
             </Box>
         </Drawer>
+        <Box sx={{ flexGrow: 1 }}>
         <AppBar variant="elevation" elevation={2}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters  >
@@ -136,26 +100,39 @@ function Navbar() {
                             <Menu />
                         </IconButton>
                     </Box>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
+                    >
+                        LOGO
+                    </Typography>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                <Button href="login" color="inherit">Login</Button>
-                                <Button href="signup" color="inherit">Sign Up</Button>
-                                <Typography variant="h6" className={classes.title}>
-                                    <Button href="about" color="inherit">About</Button>
-                                    <Button href="contact" color="inherit">Contact</Button>
-                                    <Button href="home" color="inherit">Home</Button>
-                                </Typography>
+
+                        <Button
+                            to='/home'
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={NavLink}
+                        >
+                            Home
+                        </Button>
+                        <Button
+                            to='/about'
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={NavLink}
+                        >
+                            About
+                        </Button>
+                        <Button
+                            to='/contact'
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={NavLink}
+                        >
+                            Contact
+                        </Button>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                        </Box>
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title={userContext?.email}>
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
@@ -166,6 +143,8 @@ function Navbar() {
                 </Toolbar>
             </Container>
         </AppBar>
+        </Box>
+        <Toolbar disableGutters />
         <Outlet />
     </>
 }
