@@ -8,6 +8,7 @@ import {TextField} from "@material-ui/core";
 import {sendPasswordResetEmail} from 'firebase/auth'
 import {auth} from "../../Config/firebaseConfig";
 import {useState} from "react";
+import SnackbarCustom from "../../components/SnackbarCustom";
 
 
 
@@ -15,6 +16,8 @@ import {useState} from "react";
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
+    const [authStatus,setAuthStatus]= useState(null);
+
 
     const handleSubmitChange = event => {
         setEmail(
@@ -28,10 +31,11 @@ export default function ForgotPassword() {
         try {
             const createdUser =  await sendPasswordResetEmail(auth, email)
             console.log(createdUser);
-
+            setAuthStatus({type:"success", message:"Email sent", open:true})
 
         } catch (error) {
             console.log(error.message);
+            setAuthStatus({type:"error", message:error.message , open:true})
         }
 
     }
@@ -55,6 +59,9 @@ export default function ForgotPassword() {
                     endIcon={<SendIcon />}>
             Send
         </Button>
+                <SnackbarCustom type={authStatus?.type}
+                                message={authStatus && authStatus.message ? authStatus.message : ""}
+                                open={authStatus?.open}/>
             </Box>
         </Container>
     );

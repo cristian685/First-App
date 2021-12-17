@@ -12,17 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
 import {auth} from "../../Config/firebaseConfig";
 import {
      onAuthStateChanged
  } from 'firebase/auth'
-
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import Stack from "@mui/material/Stack";
-
+import UserLogged from "./UserLogged"
+import SnackbarCustom from "../../components/SnackbarCustom"
+import {UserContext} from "../../context/UserContext";
 
 function Copyright(props) {
     return (
@@ -39,16 +37,12 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 export default function SignIn() {
+
 
     const [user, setUser] = useState(null);
     const [loginObj, setLoginObj] = useState({});
-
+    const [authStatus,setAuthStatus]= useState(null);
     const handleLoginChange = type => event => {
         setLoginObj({
             ...loginObj,
@@ -56,32 +50,25 @@ export default function SignIn() {
         })
     }
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = (event, reason) => {
-        if (reason === 'clickable') {
-            return;
-        }
+    const currentUser= useContext(UserContext)
+    console.log(user)
 
-        setOpen(false);
-    };
-    const SnackbarType = {
-    success:"success",
-        error:"error"
-    }
+
 
     const handleLoginClick = async () => {
-        const { email, password } = loginObj;
-        try {
-            const createdUser =  await signInWithEmailAndPassword(auth, email, password)
-            console.log(createdUser);
 
+        const {email, password} = loginObj;
+        try {
+            const createdUser = await signInWithEmailAndPassword(auth, email, password)
+            console.log(createdUser);
+            setAuthStatus({type:"success", message:"Login successful", open:true})
 
         } catch (error) {
-            setOpen(true);
             console.log(error.message);
+        setAuthStatus({type:"error", message:error.message , open:true})
         }
-
     }
+
     onAuthStateChanged(auth, (currentUser) => {
          setUser(currentUser);
      });
@@ -104,6 +91,9 @@ export default function SignIn() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
+                <Box>
+                    <UserLogged/>
+                </Box>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -160,7 +150,7 @@ export default function SignIn() {
                                     Forgot password </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="singup" variant="body2">
+                                <Link href="signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -176,17 +166,17 @@ export default function SignIn() {
                                      </Button>
                 </Box>
 
-                <Stack spacing={2} sx={{ width: '100%' }}>
-
-                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                            Incorect email or password!
-                        </Alert>
-                    </Snackbar>
-
-
-                </Stack>
+                <SnackbarCustom type={authStatus?.type}
+                                message={authStatus && authStatus.message ? authStatus.message : ""}
+                                open={authStatus?.open}/>
             </Container>
+            <UserContext.Consumer>
+                {currentUser => {
+                    return <div>
+                        {currentUser?.email}
+                    </div>
+                }}
+            </UserContext.Consumer>
         </ThemeProvider>
 
     );

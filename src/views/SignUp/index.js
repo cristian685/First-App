@@ -16,10 +16,8 @@ import Container from '@material-ui/core/Container';
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../Config/firebaseConfig";
 
+import SnackbarCustom from "../../components/SnackbarCustom"
 
-import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
 
 function Copyright() {
@@ -55,15 +53,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function SignUp() {
     const classes = useStyles();
 
     const [userCreateObj, setUserCreateObj] = useState({});
-
+    const [authStatus,setAuthStatus]= useState(null);
     const handleCreateChange = type => event => {
         setUserCreateObj({
             ...userCreateObj,
@@ -72,31 +67,20 @@ export default function SignUp() {
 
     }
 
-    const [open, setOpen] = React.useState(false);
 
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    }
+
 
     const handleCreateClick = async () => {
 
         const {email, password} = userCreateObj;
         try {
             const createdUser = await createUserWithEmailAndPassword(auth, email, password)
-            setOpen(true);
             console.log(createdUser);
-
-
-
+            setAuthStatus({type:"success", message:"Success", open:true})
         } catch (error) {
-            setOpen(true);
             console.log(error);
-
-            // Tema sa afisati un mesaj ca userul exista Snackbar
+            setAuthStatus({type:"error", message:error.message , open:true})
         }
     }
 
@@ -195,13 +179,9 @@ export default function SignUp() {
             <Box mt={5}>
                 <Copyright />
             </Box>
-            <Stack spacing={2} sx={{width: '100%'}}>
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                        This is a success message!
-                    </Alert>
-                </Snackbar>
-            </Stack>
+            <SnackbarCustom type={authStatus?.type}
+                            message={authStatus && authStatus.message ? authStatus.message : ""}
+                            open={authStatus?.open}/>
         </Container>
 
     );
