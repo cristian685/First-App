@@ -9,6 +9,10 @@ import Navbar from './components/Navbar'
 import GlobalWrapper from '../src/views/GlobalWrapper';
 import {store} from "./store/store"
 import Contact from "./views/Contact"
+import Home from "./views/Home"
+import File from "./views/File"
+import FirebaseServices from "./services/firebaseServices";
+import Products from "./views/Products"
 
 
 function App() {
@@ -23,6 +27,10 @@ function App() {
                    <Route exact path='/' element={<Navbar />}>
                        <Route exact path='about' element={<About />}/>
                        <Route exact path='contact' element={<Contact />}/>
+                       <Route exact path='home' element={<Home />}/>
+                       <Route exact path='file' element={<File />}/>
+                       <Route exact path='fire' element={<FirebaseServices />}/>
+                       <Route exact path='products' element={<Products />}/>
                    </Route>
 
                </Routes>

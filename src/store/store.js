@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import logger from 'redux-logger'
-import reducer from "../reducers/reducer";
+import reducer from "../reducer/reducer";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 

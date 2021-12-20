@@ -30,20 +30,8 @@ useEffect( () =>{
 }, [])
 
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <Container maxWidth="sm">
-
-
-                <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} />
-            </Container>
-            <UserContext.Consumer>
-                {user => {
-                    return <div>
-                        {user?.email}
-                    </div>
-                }}
-            </UserContext.Consumer>
-        </React.Fragment>
+        <div>
+            About
+        </div>
     );
 }
