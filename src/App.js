@@ -11,8 +11,8 @@ import {store} from "./store/store"
 import Contact from "./views/Contact"
 import Home from "./views/Home"
 import File from "./views/File"
-import FirebaseServices from "./services/firebaseServices";
 import Products from "./views/Products"
+import Admin from "./views/AdminPage"
 
 
 function App() {
@@ -29,10 +29,9 @@ function App() {
                        <Route exact path='contact' element={<Contact />}/>
                        <Route exact path='home' element={<Home />}/>
                        <Route exact path='file' element={<File />}/>
-                       <Route exact path='fire' element={<FirebaseServices />}/>
                        <Route exact path='products' element={<Products />}/>
+                       <Route exact path='admin' element={<Admin />}/>
                    </Route>
-
                </Routes>
                </GlobalWrapper>
            </BrowserRouter>

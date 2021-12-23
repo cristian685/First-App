@@ -1,21 +1,15 @@
 import React, {useState} from 'react';
-
 import { Avatar, Button, CssBaseline, TextField,
     FormControlLabel, Checkbox, Link, Grid, Box, Typography
 } from '@mui/material'
-
 import { makeStyles } from '@mui/styles'
-
 import { LockOutlined } from '@mui/icons-material';
-
 import { Container } from '@mui/material';
-
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
-
-import SnackbarCustom from "../../components/SnackbarCustom"
-
-
+import {connect} from "react-redux";
+import {openSnackbar} from "../../components/SnackbarCustom/actions";
+import  {useNavigate}  from "react-router-dom"
 
 function Copyright() {
     return (
@@ -51,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SignUp() {
-    const classes = useStyles();
+    function SignUp(props) {
 
+    const {dispatchOpenSnackbar}=props;
+    const classes = useStyles();
     const [userCreateObj, setUserCreateObj] = useState({});
-    const [authStatus,setAuthStatus]= useState(null);
+        let navigate = useNavigate();
+
     const handleCreateChange = type => event => {
         setUserCreateObj({
             ...userCreateObj,
@@ -64,20 +60,15 @@ export default function SignUp() {
 
     }
 
-
-
-
-
     const handleCreateClick = async () => {
 
         const {email, password} = userCreateObj;
         try {
             const createdUser = await createUserWithEmailAndPassword(auth, email, password)
-            console.log(createdUser);
-            setAuthStatus({type:"success", message:"Success", open:true})
+            dispatchOpenSnackbar('success' , "Ai fost inregistrat cu succes")
+            navigate("../home", { replace: true });
         } catch (error) {
-            console.log(error);
-            setAuthStatus({type:"error", message:error.message , open:true})
+            dispatchOpenSnackbar('error' , error.message)
         }
     }
 
@@ -176,10 +167,18 @@ export default function SignUp() {
             <Box mt={5}>
                 <Copyright />
             </Box>
-            <SnackbarCustom type={authStatus?.type}
-                            message={authStatus && authStatus.message ? authStatus.message : ""}
-                            open={authStatus?.open}/>
         </Container>
 
     );
 }
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

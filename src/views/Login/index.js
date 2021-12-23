@@ -19,30 +19,20 @@ import {
      onAuthStateChanged
  } from 'firebase/auth'
 import UserLogged from "./UserLogged"
-import SnackbarCustom from "../../components/SnackbarCustom"
-import {UserContext} from "../../context/UserContext";
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {UserContext} from "../../components/context/UserContext";
+import {connect} from "react-redux";
+import {openSnackbar} from "../../components/SnackbarCustom/actions";
+import  {useNavigate}  from "react-router-dom"
 
 const theme = createTheme();
 
-export default function SignIn() {
+function SignIn(props) {
 
-
+    const {dispatchOpenSnackbar}=props;
     const [user, setUser] = useState(null);
     const [loginObj, setLoginObj] = useState({});
-    const [authStatus,setAuthStatus]= useState(null);
+    let navigate = useNavigate();
+
     const handleLoginChange = type => event => {
         setLoginObj({
             ...loginObj,
@@ -60,12 +50,11 @@ export default function SignIn() {
         const {email, password} = loginObj;
         try {
             const createdUser = await signInWithEmailAndPassword(auth, email, password)
-            console.log(createdUser);
-            setAuthStatus({type:"success", message:"Login successful", open:true})
+            navigate("../products", { replace: true });
 
         } catch (error) {
+            dispatchOpenSnackbar('error' , error.message)
             console.log(error.message);
-        setAuthStatus({type:"error", message:error.message , open:true})
         }
     }
 
@@ -157,7 +146,7 @@ export default function SignIn() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+
                 <Box sx={{ margin: 10 }}>
                                      Auth user: {user?.email}
 
@@ -165,10 +154,6 @@ export default function SignIn() {
                                          Log out
                                      </Button>
                 </Box>
-
-                <SnackbarCustom type={authStatus?.type}
-                                message={authStatus && authStatus.message ? authStatus.message : ""}
-                                open={authStatus?.open}/>
             </Container>
             <UserContext.Consumer>
                 {currentUser => {
@@ -181,3 +166,14 @@ export default function SignIn() {
 
     );
 }
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

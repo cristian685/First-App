@@ -5,8 +5,8 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { UserContext } from '../../context/UserContext'
-import { ThemeContext } from '../../context/ThemeContext'
+import { UserContext } from '../context/UserContext'
+import { ThemeContext } from '../context/ThemeContext'
 
 
 import {

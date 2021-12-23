@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import { connect} from "react-redux"
 import {setName} from"./actions"
 import { TextField, Container } from"@mui/material"

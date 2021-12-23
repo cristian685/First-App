@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../components/context/UserContext';
 
 function UserLogged(props) {
     const { label } = props;

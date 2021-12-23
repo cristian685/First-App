@@ -6,11 +6,9 @@ export default function CustomButton() {
     return (
         <Box sx={{ '& button': { m: 1 } }}>
             <div>
-                <Button variant="contained" size="large">
-                    Large
-                </Button>
-                <Button variant="contained" size="large">
-                    Large
+                <Button
+                    variant="contained" size="large">
+                    Products
                 </Button>
             </div>
         </Box>

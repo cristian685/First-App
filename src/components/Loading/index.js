@@ -1,12 +1,13 @@
-import React, {useEffect} from "react"
-import { connect} from "react-redux"
-import {setCharts} from "./actions";
+import React from "react"
+import ClipLoader from "react-spinners/ClipLoader"
 
-function Loading(props){
+export default function LoadingComponent() {
+    return(
+        <div>
+    <ClipLoader
 
-    
+        color={"#A237B5"}
+    />
+        </div>
+    )
 }
-
-
-
-export default connect(Loading)

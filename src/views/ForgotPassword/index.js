@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Box, Button, Container, Typography, TextField } from '@mui/material';
-
 import SendIcon from '@mui/icons-material/Send';
 import {sendPasswordResetEmail} from 'firebase/auth'
-
 import { auth } from "../../config/firebaseConfig";
+import {connect} from "react-redux";
+import {openSnackbar} from "../../components/SnackbarCustom/actions";
 
-import SnackbarCustom from "../../components/SnackbarCustom";
+    function ForgotPassword(props) {
 
-export default function ForgotPassword() {
+    const {dispatchOpenSnackbar}=props;
     const [email, setEmail] = useState("");
-    const [authStatus,setAuthStatus]= useState(null);
 
 
     const handleSubmitChange = event => {
@@ -24,12 +23,11 @@ export default function ForgotPassword() {
     const handleSubmitClick = async () => {
         try {
             const createdUser =  await sendPasswordResetEmail(auth, email)
-            console.log(createdUser);
-            setAuthStatus({type:"success", message:"Email sent", open:true})
+            dispatchOpenSnackbar('success' , "A fost trimis un mail pentru schimbarea parolei")
 
         } catch (error) {
-            console.log(error.message);
-            setAuthStatus({type:"error", message:error.message , open:true})
+
+            dispatchOpenSnackbar('error' , error.message)
         }
 
     }
@@ -53,11 +51,18 @@ export default function ForgotPassword() {
                     endIcon={<SendIcon />}>
             Send
         </Button>
-                <SnackbarCustom type={authStatus?.type}
-                                message={authStatus && authStatus.message ? authStatus.message : ""}
-                                open={authStatus?.open}/>
             </Box>
         </Container>
     );
 }
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
 
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword)

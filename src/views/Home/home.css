@@ -1,18 +1,6 @@
-.pageWrapProduct {
+.pageHome {
     display: flex;
     flex: auto;
     height: 100%;
     width: 100%;
-}
-
-body {
-    background-color: #3e4444;
-}
-h1 {
-    color: white;
-    text-align: center;
-}
-p {
-    color: red;
-    text-align: center;
 }
