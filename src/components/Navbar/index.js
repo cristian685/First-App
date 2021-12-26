@@ -1,12 +1,15 @@
 import React, {useState, useContext } from 'react';
-import { NavLink, Outlet } from "react-router-dom";
-
+import {NavLink} from "react-router-dom";
+import {
+    signOut
+} from 'firebase/auth'
+import { auth }from '../../config/firebaseConfig'
 
 import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { UserContext } from '../context/UserContext'
-import { ThemeContext } from '../context/ThemeContext'
+import { UserContext } from '../../context/UserContext'
+import { ThemeContext } from '../../context/ThemeContext'
 
 
 import {
@@ -25,11 +28,16 @@ import {
 } from '@mui/material'
 
 import { Menu, KeyboardArrowRight } from '@mui/icons-material';
+import companyLogo from "../SidebarMui/Logo.png";
+
 
 const useStyles = makeStyles({
     active: {
         textDecoration: 'none',
         color: 'grey'
+    },
+    photo: {
+        width: "150px",
     },
     drawerBackground: {
         '&.MuiDrawer-paper': {
@@ -45,14 +53,20 @@ const useStyles = makeStyles({
 
 
 function Navbar() {
+
+
     const classes = useStyles();
     const userContext  = useContext(UserContext);
     const themeContext  = useContext(ThemeContext);
-
+    let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
     const [isOpen, setDrawerOpen ] = useState()
     const handleOpenUserMenu = () => {}
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
+    }
+
+    const handleLogout = () => {
+            signOut(auth);
     }
 
     return <>
@@ -106,7 +120,7 @@ function Navbar() {
                         component="div"
                         sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
                     >
-                        LOGO
+                        <img className={classes.photo} src={companyLogo}/>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -133,6 +147,21 @@ function Navbar() {
                             Contact
                         </Button>
                     </Box>
+                    <Box sx={{ flexGrow: 1 , marginLeft:'auto' }}>
+                        <Button
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={handleLogout}
+                        >
+                            Log out
+                        </Button>
+                    </Box>
+                    <Box sx={{ flexGrow: 0 , marginLeft:'10px' , marginRight:'10px' }}>
+                    <div>
+                        Hi , {nameFromEmail} . Welcome back
+
+
+                    </div>
+                    </Box>
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title={userContext?.email}>
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
@@ -145,7 +174,6 @@ function Navbar() {
         </AppBar>
         </Box>
         <Toolbar disableGutters />
-        <Outlet />
     </>
 }
 export default Navbar;

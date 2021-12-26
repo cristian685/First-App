@@ -68,7 +68,7 @@ import LoadingComponent from "../../components/Loading";
                         type = "text"
                         name="text"
                         autoFocus
-                        onChange={handleChangeProduct('nume')}
+                        onChange={handleChangeProduct('name')}
 
                     />
                     <TextField

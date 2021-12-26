@@ -19,7 +19,7 @@ import {
      onAuthStateChanged
  } from 'firebase/auth'
 import UserLogged from "./UserLogged"
-import {UserContext} from "../../components/context/UserContext";
+import {UserContext} from "../../context/UserContext";
 import {connect} from "react-redux";
 import {openSnackbar} from "../../components/SnackbarCustom/actions";
 import  {useNavigate}  from "react-router-dom"
@@ -29,7 +29,6 @@ const theme = createTheme();
 function SignIn(props) {
 
     const {dispatchOpenSnackbar}=props;
-    const [user, setUser] = useState(null);
     const [loginObj, setLoginObj] = useState({});
     let navigate = useNavigate();
 
@@ -39,11 +38,6 @@ function SignIn(props) {
             [type]: event.target.value
         })
     }
-
-    const currentUser= useContext(UserContext)
-    console.log(user)
-
-
 
     const handleLoginClick = async () => {
 
@@ -58,14 +52,9 @@ function SignIn(props) {
         }
     }
 
-    onAuthStateChanged(auth, (currentUser) => {
-         setUser(currentUser);
-     });
-
-    const handleLogout = () => {
-        signOut(auth);
-    }
-
+    // onAuthStateChanged(auth, (currentUser) => {
+    //      setUser(currentUser);
+    //  });
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -146,22 +135,7 @@ function SignIn(props) {
                         </Grid>
                     </Box>
                 </Box>
-
-                <Box sx={{ margin: 10 }}>
-                                     Auth user: {user?.email}
-
-                                     <Button onClick={handleLogout}>
-                                         Log out
-                                     </Button>
-                </Box>
             </Container>
-            <UserContext.Consumer>
-                {currentUser => {
-                    return <div>
-                        {currentUser?.email}
-                    </div>
-                }}
-            </UserContext.Consumer>
         </ThemeProvider>
 
     );

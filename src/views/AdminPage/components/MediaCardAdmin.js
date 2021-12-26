@@ -25,7 +25,7 @@ export default function MediaCardAdmin(props) {
 
     const classes = useStyles();
     const { post, onDelete } = props;
-    const { adress, id, name , price ,contact ,program } = post;
+    const { adress, id, name , price ,contact ,program, image } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
@@ -43,16 +43,16 @@ export default function MediaCardAdmin(props) {
                     {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {adress}
+                   Adresa: {adress}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {contact}
+                   Contact: {contact}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {program}
+                   Program: {program}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
-                    {price}
+                   Pret/h: {price} RON
                 </Typography>
             </CardContent>
 
@@ -63,7 +63,7 @@ export default function MediaCardAdmin(props) {
                     component={Link}
                     variant="outlined"
                     color="primary"
-                >Learn More</Button>
+                >Fa o rezervare</Button>
                 <Button
                     onClick={handleOnDelete}
                     display='flex'

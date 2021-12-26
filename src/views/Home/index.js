@@ -1,25 +1,46 @@
 import React from 'react';
-import './home.css'
 import CustomButton from "../../components/CustomButton"
-import LoadingComponent from "../../components/Loading";
-import {isLoading} from "../AdminPage/actions";
+import {Box} from "@mui/material";
+import {Link} from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Images from "../../images/index"
 
 
 
-export default function Home(props) {
-    const {loading} =props.
-    if(loading)
-    {
-        return <div >
-            <h1>
-                <LoadingComponent/>
-            </h1>
-        </div>
-    }
+export default function Home() {
+
     return <div className="pageWrapHome">
+        <Images/>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 20,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Box component="form" noValidate sx={{ mt: 1 }}>
 
-                     Home Page
+                    <Link to="/products">
+                        <CustomButton class="CustomButton "
+                            // onClick={handleCloseNavMenu}
+                                      sx={{ my: 2, color: 'white', display: 'block' }}
+                                      text="Inchiriaza teren">
+                        </CustomButton>
+                    </Link>
+                    <Link to="/">
+                        <CustomButton class="CustomButton "
+                            // onClick={handleCloseNavMenu}
+                                      sx={{ my: 2, color: 'white', display: 'block' }}
+                                      text="Competitii">
+                        </CustomButton>
+                    </Link>
+                </Box>
+            </Box>
 
-                    <CustomButton />
+        </Container>
             </div>
 }

@@ -6,10 +6,10 @@ import MediaCard from './components/MediaCard';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Searchbar from "../../components/Searchbar";
+import SelectBar from "../../components/SelectBar";
 
 function Products(props) {
-
-
 
     const {loading , products} =props
 
@@ -21,29 +21,33 @@ function Products(props) {
 
     if(loading)
     {
-        return <div >
-            <h1>
+        return (
             <LoadingComponent/>
-        </h1>
-        </div>
+        )
     }
     return<div >
-        {products.map( product =>{
-                return(
-                    <Container component="main" maxWidth="lg">
+        <Box
+            sx={{
+                marginTop: 5,
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 'auto',
+            }}>
+        <Searchbar />
+        <SelectBar/>
+        </Box>
+                    <Container component="main" maxWidth="lg" sx={{marginLeft:50}}>
                         <Box
                             sx={{
-                                marginTop: 8,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 flex: 'auto',
                             }}>
-                            <Typography component="h1" variant='h6' gutterBottom>Terenuri</Typography>
+                            <Typography component="h1" variant='h6' gutterBottom>In Brasov : </Typography>
                             <Box
                                 sx={{
-                                    marginTop: 8,
                                     display: 'flex',
-                                    flexWrap: 'wrap',
+                                    flexDirection: 'column',
                                 }}>
                                 {products.map(product => {
                                     return <MediaCard
@@ -56,8 +60,6 @@ function Products(props) {
 
                         </Box>
                     </Container>
-                )
-            })}
     </div>
 }
 

@@ -15,7 +15,6 @@ import {
 
 const useStyles = makeStyles({
     mediaCard: {
-        maxWidth: 250,
         minWidth: 250,
         margin: 10,
     }
@@ -33,8 +32,7 @@ export default function MediaCard(props) {
             <Link to='/terenuri/${id}'>
                 <CardMedia
                     component="img"
-                    image={post.url}
-                    alt={post.model}
+                    src={post.url}
                 />
             </Link>
             <CardContent>
@@ -42,16 +40,16 @@ export default function MediaCard(props) {
                     {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {adress}
+                    Adresa: {adress}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {contact}
+                    Contact: {contact}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {program}
+                    Program: {program}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
-                    {price}
+                    Pret/h: {price} RON
                 </Typography>
             </CardContent>
 
@@ -62,7 +60,7 @@ export default function MediaCard(props) {
                     component={Link}
                     variant="outlined"
                     color="primary"
-                >Learn More</Button>
+                >Fa o rezervare</Button>
 
             </CardActions>
         </Card>
