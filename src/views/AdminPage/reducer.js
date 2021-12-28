@@ -1,4 +1,4 @@
-import {SET_PRODUCTS, IS_LOADING} from "./constants";
+    import {SET_PRODUCTS, IS_LOADING} from "./constants";
 
 
 const initialState={

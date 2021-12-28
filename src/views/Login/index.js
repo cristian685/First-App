@@ -44,7 +44,7 @@ function SignIn(props) {
         const {email, password} = loginObj;
         try {
             const createdUser = await signInWithEmailAndPassword(auth, email, password)
-            navigate("../products", { replace: true });
+            navigate("../home", { replace: true });
 
         } catch (error) {
             dispatchOpenSnackbar('error' , error.message)
@@ -55,17 +55,6 @@ function SignIn(props) {
     // onAuthStateChanged(auth, (currentUser) => {
     //      setUser(currentUser);
     //  });
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -87,7 +76,7 @@ function SignIn(props) {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required

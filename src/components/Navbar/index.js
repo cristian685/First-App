@@ -4,14 +4,10 @@ import {
     signOut
 } from 'firebase/auth'
 import { auth }from '../../config/firebaseConfig'
-
 import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
 import { UserContext } from '../../context/UserContext'
 import { ThemeContext } from '../../context/ThemeContext'
-
-
 import {
     AppBar,
     Box,
@@ -28,8 +24,21 @@ import {
 } from '@mui/material'
 
 import { Menu, KeyboardArrowRight } from '@mui/icons-material';
-import companyLogo from "../SidebarMui/Logo.png";
+import companyLogo from "../../images/logo.png";
 
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+import {ThemeProvider} from "@emotion/react";
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: purple[500],
+        },
+        secondary: {
+            main: '#1b5e20',
+        },
+    },
+});
 
 const useStyles = makeStyles({
     active: {
@@ -99,7 +108,8 @@ function Navbar() {
             </Box>
         </Drawer>
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar variant="elevation" elevation={2}>
+        <ThemeProvider theme={theme}>
+        <AppBar variant="elevation" elevation={2} color="secondary">
             <Container maxWidth="xl">
                 <Toolbar disableGutters  >
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -172,6 +182,7 @@ function Navbar() {
                 </Toolbar>
             </Container>
         </AppBar>
+        </ThemeProvider>
         </Box>
         <Toolbar disableGutters />
     </>

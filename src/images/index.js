@@ -1,12 +1,12 @@
 import React from "react"
 
-import img1 from '../images/download.png'
+import img1 from '../images/home.jpg'
 
 function Images() {
     return(
 
         <div>
-            <img src={img1} height="30%" width="50%" alt="" />
+            {/*<img src={img1} height="10%" width="100%" alt="" />*/}
         </div>
     )
 

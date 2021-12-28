@@ -14,13 +14,23 @@ import AddIcon from '@mui/icons-material/Add';
 import MediaCardAdmin from "./components/MediaCardAdmin";
 import LoadingComponent from "../../components/Loading";
 
+import {uploadImagesFirebase} from "../../services/firebaseService";
+
 
     function Admin(props) {
+
     const [newProduct ,setNewProduct] = useState({})
     const {loading, products ,dispatchCreateProduct,dispatchDeleteProduct} =props
+    const[image , setImage ] = useState(null);
 
+        const handleChangeImage = e =>{
+            if(e.target.files[0]){
+                setImage(e.target.files[0]);
+                console.log(e.target.files)
+            }
+        }
     const handleCreateProduct = () => {
-        dispatchCreateProduct(newProduct);
+        dispatchCreateProduct({...newProduct, image: image});
     }
 
     const handleChangeProduct= (type) => (event) =>{
@@ -118,15 +128,14 @@ import LoadingComponent from "../../components/Loading";
                     <TextField
                         margin="normal"
                         fullWidth
-                        type="text"
-                        id="url"
-                        label="URL"
-                        name="url"
+                        type="file"
+                        id="file"
+                        label="file"
+                        name="file"
                         autoFocus
-                        onChange={handleChangeProduct('url')}
+                        onChange={handleChangeImage}
 
                     />
-
                     <Button
                         onClick={handleCreateProduct}
                         fullWidth

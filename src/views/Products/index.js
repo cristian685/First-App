@@ -6,12 +6,17 @@ import MediaCard from './components/MediaCard';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Searchbar from "../../components/Searchbar";
 import SelectBar from "../../components/SelectBar";
+import SearchInput from "../../components/SearchImput";
 
 function Products(props) {
-
     const {loading , products} =props
+    const [searchText , setSearchText ] =useState("")
+    const handleOnChange=(event) => {
+        setSearchText(event.target.value)
+    }
+
+    const filteredProducts = products.filter(item => item?.name.includes(searchText))
 
     useEffect(() => {
         props.dispatchSetProducts()
@@ -33,7 +38,7 @@ function Products(props) {
                 flexDirection: 'column',
                 flex: 'auto',
             }}>
-        <Searchbar />
+        <SearchInput onSearchChanged={handleOnChange}/>
         <SelectBar/>
         </Box>
                     <Container component="main" maxWidth="lg" sx={{marginLeft:50}}>
@@ -49,7 +54,7 @@ function Products(props) {
                                     display: 'flex',
                                     flexDirection: 'column',
                                 }}>
-                                {products.map(product => {
+                                {filteredProducts.map(product => {
                                     return <MediaCard
                                         key={product.id}
                                         post={product}

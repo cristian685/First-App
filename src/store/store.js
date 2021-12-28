@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const composeEnhancer = composeWithDevTools || compose
-const middleWare = [thunk, logger];
+const middleWare = [thunk];
 
 export const store = createStore(
     reducer, composeEnhancer(applyMiddleware(...middleWare)));

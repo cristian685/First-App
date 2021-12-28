@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from'react-router-dom';
-
 import { makeStyles } from '@mui/styles';
 import {
     Card,
@@ -10,15 +9,26 @@ import {
     Button,
     Typography,
 } from '@mui/material'
-
-
-
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+import {ThemeProvider} from "@emotion/react";
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: purple[500],
+        },
+        secondary: {
+            main: '#1b5e20',
+        },
+    },
+});
 const useStyles = makeStyles({
     mediaCard: {
         minWidth: 250,
         margin: 10,
     }
 })
+
 
 export default function MediaCard(props) {
 
@@ -54,14 +64,15 @@ export default function MediaCard(props) {
             </CardContent>
 
             <CardActions>
+                <ThemeProvider theme={theme}>
                 <Button
                     display='flex'
                     to={`/terenuri/${id}`}
                     component={Link}
-                    variant="outlined"
-                    color="primary"
+                    variant="contained"
+                    color="secondary"
                 >Fa o rezervare</Button>
-
+                    </ThemeProvider>
             </CardActions>
         </Card>
     );

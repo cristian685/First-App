@@ -4,13 +4,12 @@ import { Link } from'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
     Card,
-    CardMedia,
     CardActions,
     CardContent,
     Button,
     Typography,
 } from '@mui/material'
-
+import CardMediaCustom from "../../../components/CardMediaCustom";
 
 
 const useStyles = makeStyles({
@@ -25,21 +24,17 @@ export default function MediaCardAdmin(props) {
 
     const classes = useStyles();
     const { post, onDelete } = props;
-    const { adress, id, name , price ,contact ,program, image } = post;
+    const { adress, id, name , price ,contact ,program } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
     return (
         <Card className={classes.mediaCard} >
             <Link to='/terenuri/${id}'>
-                <CardMedia
-                    component="img"
-                    image={post.url}
-                    alt={post.model}
-                />
+                <CardMediaCustom idImage={id}/>
             </Link>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
+                    <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
                     {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>

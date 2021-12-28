@@ -1,5 +1,5 @@
 import {SET_PRODUCTS , GET_PRODUCTS , IS_LOADING} from"./constants"
-import {addProductService, fetchProductsService , deleteProductService} from "../../services/firebaseService";
+import {addProductService, fetchProductsService , deleteProductService , uploadImagesFirebase} from "../../services/firebaseService";
 import  {openSnackbar} from "../../components/SnackbarCustom/actions"
 
 export const getProduct = () => {
@@ -42,12 +42,32 @@ export const createProduct = (product) => {
     return async(dispatch) => {
         dispatch(isLoading(true))
         try{
-            await addProductService(product);
-            dispatch(getProduct())
-            dispatch(openSnackbar('success','S-a creat produsul cu succes'))
+            const productImage = product?.image;
+            delete product?.image;
+            const responseProductId = await addProductService(product);
+            if (responseProductId)
+            {
+                dispatch(uploadProductImage(responseProductId, productImage))
+                dispatch(getProduct())
+                dispatch(openSnackbar('success', 'S-a creat produsul cu succes'))
+            }
+            dispatch(isLoading(false));
         }
         catch(errors) {
-            dispatch(openSnackbar('errors' , errors.message))
+            dispatch(openSnackbar('error', errors.message))
+        }
+        dispatch(isLoading(false))
+    }
+}
+export const uploadProductImage = (id, image) => {
+    return async(dispatch) => {
+        dispatch(isLoading(true))
+        try{
+            await uploadImagesFirebase(image,id);
+            dispatch(isLoading(false));
+        }
+        catch(errors) {
+            dispatch(openSnackbar('errors', errors.message))
             console.log(errors)
         }
         dispatch(isLoading(false))
