@@ -3,6 +3,7 @@ import { Link } from'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
     Card,
+    CardMedia,
     CardActions,
     CardContent,
     Button,
@@ -25,7 +26,7 @@ const theme = createTheme({
 });
 const useStyles = makeStyles({
     mediaCard: {
-        minWidth: 350,
+        minWidth: 250,
         margin: 10,
     }
 })
@@ -66,14 +67,14 @@ export default function MediaCard(props) {
                 </Typography>
             </CardContent>
                 <CardActions>
-                    <ThemeProvider theme={theme}>
-                        <Button
-                            display='flex'
-                            to={`/terenuri/${id}`}
-                            component={Link}
-                            variant="contained"
-                            color="secondary"
-                        >Fa o rezervare</Button>
+                <ThemeProvider theme={theme}>
+                <Button
+                    display='flex'
+                    to={`/terenuri/${id}`}
+                    component={Link}
+                    variant="contained"
+                    color="secondary"
+                >Fa o rezervare</Button>
                     </ThemeProvider>
                 </CardActions>
             </Box>
