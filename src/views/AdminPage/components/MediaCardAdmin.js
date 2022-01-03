@@ -7,11 +7,13 @@ import {
     CardActions,
     CardContent,
     Button,
-    Typography,
+    Typography, Container,
 } from '@mui/material'
 import CardMediaCustom from "../../../components/CardMediaCustom";
 import {openDialog} from "./Dialog/actions"
 import {connect} from "react-redux";
+import DialogCustom from "../../../components/DialogCustom";
+import AddElement from "./AddElement";
 
 
 const useStyles = makeStyles({
@@ -24,12 +26,26 @@ const useStyles = makeStyles({
 
 function MediaCardAdmin(props) {
 
+    const [openDialog, setOpenDialog] = useState(false);
     const {dispatchOpenDialog}=props;
     const classes = useStyles();
     const { post, onDelete } = props;
     const { adress, id, name , price ,contact ,program } = post;
+    console.log('post', post)
     const handleOnDelete=()=>{
         onDelete(id);
+    }
+    const handleToggleElement = () => {
+        setOpenDialog(!openDialog)
+    }
+    const handleChangeProduct = () => {
+
+    }
+    const handleChangeImage= () => {
+
+    }
+    const handleCreateProduct= () => {
+
     }
 
     return (
@@ -57,7 +73,7 @@ function MediaCardAdmin(props) {
 
             <CardActions>
                 <Button
-                    onClick={() =>dispatchOpenDialog(true)}
+                    onClick={handleToggleElement}
                     display='flex'
                     // to={`/terenuri/${id}`}
                     // component={Link}
@@ -71,6 +87,9 @@ function MediaCardAdmin(props) {
                     color="primary"
                 >Delete</Button>
             </CardActions>
+            <DialogCustom open={openDialog} onClose={handleToggleElement}>
+                <AddElement element={post} onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
+            </DialogCustom>
         </Card>
     );
 }
