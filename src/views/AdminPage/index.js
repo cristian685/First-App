@@ -14,7 +14,6 @@ import AddIcon from '@mui/icons-material/Add';
 import MediaCardAdmin from "./components/MediaCardAdmin";
 import LoadingComponent from "../../components/Loading";
 
-import {uploadImagesFirebase} from "../../services/firebaseService";
 
 
     function Admin(props) {

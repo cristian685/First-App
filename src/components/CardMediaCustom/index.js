@@ -25,10 +25,11 @@ function CardMediaCustom(props) {
     else {
         return (
             <CardMedia
+
                 component="img"
-                height="140"
+                height="150"
+                width='200'
                 image={picture}
-                alt="green iguana"
             />
         )
     }

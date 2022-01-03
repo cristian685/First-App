@@ -34,6 +34,7 @@ function Products(props) {
         <Box
             sx={{
                 marginTop: 5,
+                marginLeft:5,
                 display: 'flex',
                 flexDirection: 'column',
                 flex: 'auto',
@@ -41,7 +42,7 @@ function Products(props) {
         <SearchInput onSearchChanged={handleOnChange}/>
         <SelectBar/>
         </Box>
-                    <Container component="main" maxWidth="lg" sx={{marginLeft:50}}>
+                    <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
                         <Box
                             sx={{
                                 display: 'flex',
