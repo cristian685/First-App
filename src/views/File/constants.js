@@ -1,0 +1,1 @@
+export const SET_EMAIL = "Redux:SET_EMAIL"

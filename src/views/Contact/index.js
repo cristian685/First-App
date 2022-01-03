@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import { connect} from "react-redux"
 import {setName} from"./actions"
 import { TextField, Container } from"@mui/material"
@@ -7,16 +7,16 @@ import { TextField, Container } from"@mui/material"
 function Contact(props) {
     console.log(props)
 
-    useEffect(() => {
-      props.dispatchSetName('Cristi');
-
-    });
+    // useEffect(() => {
+    //   props.dispatchSetName('Cristi');
+    // });
     const handleOnChange = (event) => {
         props.dispatchSetName(event.target.value)
     }
     return(
         <Container>
             <TextField
+                value={props?.name}
                 margin="normal"
                 required
                 fullWidth
@@ -29,8 +29,9 @@ function Contact(props) {
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
-     name: state.name,
+        name: state.contact.name,
     };
 }
 

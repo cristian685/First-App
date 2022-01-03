@@ -2,7 +2,8 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import MuiAlert from '@mui/material/Alert';
 import { Snackbar } from "@mui/material";
-import {useEffect} from "react";
+import {connect} from "react-redux";
+import {closeSnackbar} from "./actions";
 
 export const SET_SNACKBAR = "teamly/settings/SET_SNACKBAR";
 
@@ -12,37 +13,29 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 
-export default function SnackbarCustom(props) {
-    const {type, message}=props;
-    let {open}=props;
-    console.log(type)
-
-    const [isLocalOpen, setIsLocalOpen] = React.useState(open);
-
-    useEffect(() => {
-        setIsLocalOpen(open);
-    }, [open]);
+function SnackbarCustom(props) {
+    const {type, message , dispatchCloseSnackbar}=props;
+    const open=!!type;
 
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setIsLocalOpen(false);
+    console.log(type , message)
+
+    const handleCloseSnackbar = () => {
+        dispatchCloseSnackbar();
     };
 
     return (
         <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar
-                open={isLocalOpen}
+                open={open}
                 autoHideDuration={3000}
-                onClose={handleClose}
+                onClose={handleCloseSnackbar}
             >
                 <Alert
-                    onClose={handleClose}
+                    onClose={handleCloseSnackbar}
                     severity={type}
                     sx={{width: '100%'}}
-                    >
+                >
                     {message}
                 </Alert>
             </Snackbar>
@@ -50,6 +43,16 @@ export default function SnackbarCustom(props) {
 
     );
 }
-            // <Alert severity="warning">This is a warning message!</Alert>
-            // <Alert severity="info">This is an information message!</Alert>
-            // <Alert  key severity="success">This is a success message!</Alert>
+const mapStateToProps=(state)=>{
+    return {
+        ...state.snackbar
+    };
+}
+const mapDispatchToProps={
+    dispatchCloseSnackbar : closeSnackbar
+
+}
+// <Alert severity="warning">This is a warning message!</Alert>
+// <Alert severity="info">This is an information message!</Alert>
+// <Alert  key severity="success">This is a success message!</Alert>
+export default connect(mapStateToProps, mapDispatchToProps)(SnackbarCustom)

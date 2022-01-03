@@ -1,0 +1,3 @@
+export const GET_PRODUCTS = "ADMIN : GET_PRODUCTS"
+export const SET_PRODUCTS = "ADMIN : SET_PRODUCTS"
+export const IS_LOADING = "ADMIN : IS_LOADING"

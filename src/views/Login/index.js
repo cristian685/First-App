@@ -19,30 +19,19 @@ import {
      onAuthStateChanged
  } from 'firebase/auth'
 import UserLogged from "./UserLogged"
-import SnackbarCustom from "../../components/SnackbarCustom"
 import {UserContext} from "../../context/UserContext";
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {connect} from "react-redux";
+import {openSnackbar} from "../../components/SnackbarCustom/actions";
+import  {useNavigate}  from "react-router-dom"
 
 const theme = createTheme();
 
-export default function SignIn() {
+function SignIn(props) {
 
-
-    const [user, setUser] = useState(null);
+    const {dispatchOpenSnackbar}=props;
     const [loginObj, setLoginObj] = useState({});
-    const [authStatus,setAuthStatus]= useState(null);
+    let navigate = useNavigate();
+
     const handleLoginChange = type => event => {
         setLoginObj({
             ...loginObj,
@@ -50,44 +39,22 @@ export default function SignIn() {
         })
     }
 
-    const currentUser= useContext(UserContext)
-    console.log(user)
-
-
-
     const handleLoginClick = async () => {
 
         const {email, password} = loginObj;
         try {
             const createdUser = await signInWithEmailAndPassword(auth, email, password)
-            console.log(createdUser);
-            setAuthStatus({type:"success", message:"Login successful", open:true})
+            navigate("../home", { replace: true });
 
         } catch (error) {
+            dispatchOpenSnackbar('error' , error.message)
             console.log(error.message);
-        setAuthStatus({type:"error", message:error.message , open:true})
         }
     }
 
-    onAuthStateChanged(auth, (currentUser) => {
-         setUser(currentUser);
-     });
-
-    const handleLogout = () => {
-        signOut(auth);
-    }
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
+    // onAuthStateChanged(auth, (currentUser) => {
+    //      setUser(currentUser);
+    //  });
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -109,7 +76,7 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -157,27 +124,19 @@ export default function SignIn() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-                <Box sx={{ margin: 10 }}>
-                                     Auth user: {user?.email}
-
-                                     <Button onClick={handleLogout}>
-                                         Log out
-                                     </Button>
-                </Box>
-
-                <SnackbarCustom type={authStatus?.type}
-                                message={authStatus && authStatus.message ? authStatus.message : ""}
-                                open={authStatus?.open}/>
             </Container>
-            <UserContext.Consumer>
-                {currentUser => {
-                    return <div>
-                        {currentUser?.email}
-                    </div>
-                }}
-            </UserContext.Consumer>
         </ThemeProvider>
 
     );
 }
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
