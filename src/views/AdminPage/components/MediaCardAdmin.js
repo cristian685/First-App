@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from'react-router-dom';
 
 import { makeStyles } from '@mui/styles';
@@ -10,6 +10,8 @@ import {
     Typography,
 } from '@mui/material'
 import CardMediaCustom from "../../../components/CardMediaCustom";
+import {openDialog} from "./Dialog/actions"
+import {connect} from "react-redux";
 
 
 const useStyles = makeStyles({
@@ -20,14 +22,16 @@ const useStyles = makeStyles({
     }
 })
 
-export default function MediaCardAdmin(props) {
+function MediaCardAdmin(props) {
 
+    const {dispatchOpenDialog}=props;
     const classes = useStyles();
     const { post, onDelete } = props;
     const { adress, id, name , price ,contact ,program } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
+
     return (
         <Card className={classes.mediaCard} >
             <Link to='/terenuri/${id}'>
@@ -53,12 +57,13 @@ export default function MediaCardAdmin(props) {
 
             <CardActions>
                 <Button
+                    onClick={() =>dispatchOpenDialog(true)}
                     display='flex'
-                    to={`/terenuri/${id}`}
-                    component={Link}
+                    // to={`/terenuri/${id}`}
+                    // component={Link}
                     variant="outlined"
                     color="primary"
-                >Fa o rezervare</Button>
+                >Edit element</Button>
                 <Button
                     onClick={handleOnDelete}
                     display='flex'
@@ -69,3 +74,14 @@ export default function MediaCardAdmin(props) {
         </Card>
     );
 }
+const mapStateToProps = state => {
+    return {
+        ...state.dialog,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenDialog:openDialog
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MediaCardAdmin)

@@ -15,11 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useContext, useState} from "react";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
 import {auth} from "../../config/firebaseConfig";
-import {
-     onAuthStateChanged
- } from 'firebase/auth'
 import UserLogged from "./UserLogged"
-import {UserContext} from "../../context/UserContext";
 import {connect} from "react-redux";
 import {openSnackbar} from "../../components/SnackbarCustom/actions";
 import  {useNavigate}  from "react-router-dom"
