@@ -1,12 +1,13 @@
 import {
-    SET_PRODUCTS , IS_LOAD,  SET_RESERVATIONS
+    SET_PRODUCTS,
+    IS_LOAD,
+    SET_RESERVATIONS,
 } from "./constants";
 
 
 const initialState={
-   products: [],
-   reservations: [],
-   loading:false,
+   products:[],
+    loading:false,
 };
 
 const productsReducer = (state = initialState, action) => {

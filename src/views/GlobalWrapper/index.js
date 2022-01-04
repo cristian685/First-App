@@ -3,12 +3,10 @@ import {onAuthStateChanged} from 'firebase/auth';
 import { auth } from '../../config/firebaseConfig';
 import { UserContext} from '../../context/UserContext'
 import SnackbarCustom from "../../components/SnackbarCustom/index"
-
 function GlobalWrapper(props) {
 
     const { children } = props;
     const [authUser, setAuthUser ] = useState()
-
     onAuthStateChanged(auth, (currentUser) => {
         return setAuthUser(currentUser);
     })

@@ -18,9 +18,7 @@ export const addProductService = async (product) => {
         console.log('response',response,'id',response?.id)
         if (response.id) {
             return response.id;
-        }
-        else
-        {
+        } else {
             return '';
         }
 

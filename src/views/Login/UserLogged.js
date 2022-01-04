@@ -7,7 +7,6 @@ function UserLogged(props) {
         <div>
             <UserContext.Consumer>
                 {user => {
-                    console.log(user);
                     if(user?.signOut) {
                         user.signOut();
                     }

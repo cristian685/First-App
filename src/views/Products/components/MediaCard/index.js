@@ -1,44 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from'react-router-dom';
-import { makeStyles } from '@mui/styles';
+
 import {
     Card,
-    CardMedia,
     CardActions,
     CardContent,
-    Button,
     Typography,
+    Box,
 } from '@mui/material'
-import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-import {ThemeProvider} from "@emotion/react";
-import CardMediaCustom from "../../../../components/CardMediaCustom";
-import Box from "@mui/material/Box";
-import DialogCustom from "../../../../components/DialogCustom";
-import ProductsDialog from "./ProductsDialog";
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: purple[500],
-        },
-        secondary: {
-            main: '#1b5e20',
-        },
-    },
-});
-const useStyles = makeStyles({
-    mediaCard: {
-        minWidth: 250,
-        margin: 10,
-    }
-})
 
+import CardMediaCustom from "../../../../components/CardMediaCustom";
+import ProductsDialog from "./ProductsDialog";
 
 export default function MediaCard(props) {
     const { post } = props;
     const { adress, id, name , price ,contact, program } = post;
-
-
 
     return (
         <Card sx={{ display: 'flex' ,maxHeight:280  , marginTop:3}} >

@@ -4,10 +4,7 @@ import {createProduct, deleteProduct, getProduct} from "./actions";
 import {
     Avatar,
     Box,
-    Button,
     Container,
-    Divider,
-    TextField,
     Typography
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -15,10 +12,7 @@ import MediaCardAdmin from "./components/MediaCardAdmin";
 import LoadingComponent from "../../components/Loading";
 import AddElement from "./components/AddElement";
 
-
-
-    function Admin(props) {
-
+function Admin(props) {
     const [newProduct ,setNewProduct] = useState({});
     const [previewImage, setPreviewImage] = useState('')
     const {loading, products ,dispatchCreateProduct,dispatchDeleteProduct} =props
@@ -54,25 +48,25 @@ import AddElement from "./components/AddElement";
     }
     return (
         <Box marginTop={2}>
-        <Container component="main" maxWidth="xs">
-            <Typography component="h1" variant="h5">
-                Add elements to the database
-            </Typography>
-            <Avatar sx={{ m: 1, bgcolor: '#008CBA' }}>
-                <AddIcon/>
-            </Avatar>
-                <AddElement previewImage={previewImage}  onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
-                <Box>
-                    {products.map(product => {
-                        return <MediaCardAdmin
-                            key={product.id}
-                            post={product}
-                            onDelete={dispatchDeleteProduct}
-                        />
-                    })}
+            <Container component="main" maxWidth="xs">
+                <Typography component="h1" variant="h5">
+                    Add elements to the database
+                </Typography>
+                <Avatar sx={{ m: 1, bgcolor: '#008CBA' }}>
+                    <AddIcon/>
+                </Avatar>
+                    <AddElement previewImage={previewImage}  onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
+                    <Box>
+                        {products.map(product => {
+                            return <MediaCardAdmin
+                                key={product.id}
+                                post={product}
+                                onDelete={dispatchDeleteProduct}
+                            />
+                        })}
 
-            </Box>
-        </Container>
+                </Box>
+            </Container>
         </Box>
     )
 }

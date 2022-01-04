@@ -22,7 +22,7 @@ import {openSnackbar} from "../../components/SnackbarCustom/actions";
 
     const handleSubmitClick = async () => {
         try {
-            const createdUser =  await sendPasswordResetEmail(auth, email)
+            await sendPasswordResetEmail(auth, email)
             dispatchOpenSnackbar('success' , "A fost trimis un mail pentru schimbarea parolei")
 
         } catch (error) {

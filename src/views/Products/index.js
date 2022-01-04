@@ -23,44 +23,46 @@ function Products(props) {
         ;
     },[] );
 
-    return<div >
-        <Box
-            sx={{
-                marginTop: 5,
-                marginLeft:5,
-                display: 'flex',
-                flexDirection: 'column',
-                flex: 'auto',
-            }}>
-        <SearchInput onSearchChanged={handleOnChange}/>
-        <SelectBar/>
-        </Box>
-        {loading &&  <LoadingComponent/>}
-                    <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: 'auto',
-                            }}>
-                            <Typography component="h1" variant='h6' gutterBottom>In Brasov : </Typography>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                }}>
-                                {filteredProducts.map(product => {
-                                    return <MediaCard
-                                        key={product.id}
-                                        post={product}
+    return (
+        <div >
+            <Box
+                sx={{
+                    marginTop: 5,
+                    marginLeft:5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 'auto',
+                }}>
+            <SearchInput onSearchChanged={handleOnChange}/>
+            <SelectBar/>
+            </Box>
+            {loading &&  <LoadingComponent/>}
+            <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 'auto',
+                    }}>
+                    <Typography component="h1" variant='h6' gutterBottom>In Brasov : </Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}>
+                        {filteredProducts.map(product => {
+                            return <MediaCard
+                                key={product.id}
+                                post={product}
 
-                                    />
-                                })}
-                            </Box>
+                            />
+                        })}
+                    </Box>
 
-                        </Box>
-                    </Container>
-    </div>
+                </Box>
+            </Container>
+        </div>
+    )
 }
 
 const mapStateToProps = state => {

@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setEmail} from './actions';
-import {Container, TextField} from "@mui/material";
+import { setEmail } from './actions';
+import {
+    Container,
+    TextField
+} from "@mui/material";
 
 function File(props) {
 

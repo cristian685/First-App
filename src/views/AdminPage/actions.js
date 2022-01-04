@@ -1,6 +1,17 @@
-import {SET_PRODUCTS , GET_PRODUCTS , IS_LOADING} from"./constants"
-import {addProductService, fetchProductsService , deleteProductService , uploadImagesFirebase} from "../../services/firebaseService";
-import  {openSnackbar} from "../../components/SnackbarCustom/actions"
+import {
+    SET_PRODUCTS,
+    GET_PRODUCTS,
+    IS_LOADING
+} from"./constants"
+import {
+    addProductService,
+    fetchProductsService,
+    deleteProductService,
+    uploadImagesFirebase
+} from "../../services/firebaseService";
+import  {
+    openSnackbar
+} from "../../components/SnackbarCustom/actions"
 
 export const getProduct = () => {
     return async(dispatch) => {
