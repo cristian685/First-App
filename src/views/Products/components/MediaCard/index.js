@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from'react-router-dom';
-import { makeStyles } from '@mui/styles';
+
 import {
     Card,
-    CardMedia,
     CardActions,
     CardContent,
-    Button,
     Typography,
     Box,
 } from '@mui/material'

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {onAuthStateChanged} from 'firebase/auth';
 import { auth } from '../../config/firebaseConfig';
-import { UserContext} from '../../components/context/UserContext'
+import { UserContext} from '../../context/UserContext'
 import SnackbarCustom from "../../components/SnackbarCustom/index"
 function GlobalWrapper(props) {
 

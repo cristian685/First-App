@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserContext } from '../../components/context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 function UserLogged(props) {
     const { label } = props;
@@ -7,7 +7,6 @@ function UserLogged(props) {
         <div>
             <UserContext.Consumer>
                 {user => {
-                    console.log(user);
                     if(user?.signOut) {
                         user.signOut();
                     }

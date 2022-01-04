@@ -9,8 +9,6 @@ import Paper from '@mui/material/Paper';
 
 import Checkbox from '@mui/material/Checkbox';
 
-
-
 export default function CustomTable(props) {
     const { onChange, list, checkIntervals } = props;
 

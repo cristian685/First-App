@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
         const {email, password} = userCreateObj;
         try {
-            const createdUser = await createUserWithEmailAndPassword(auth, email, password)
+            await createUserWithEmailAndPassword(auth, email, password)
             dispatchOpenSnackbar('success' , "Ai fost inregistrat cu succes")
             navigate("../home", { replace: true });
         } catch (error) {

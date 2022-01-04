@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,8 +12,8 @@ import { LockOutlined } from '@mui/icons-material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useContext, useState} from "react";
-import {signInWithEmailAndPassword, signOut} from "firebase/auth";
+
+import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../config/firebaseConfig";
 import UserLogged from "./UserLogged"
 import {connect} from "react-redux";
@@ -24,7 +24,6 @@ const theme = createTheme();
 
 function SignIn(props) {
 
-    const {dispatchOpenSnackbar}=props;
     const {dispatchOpenSnackbar}=props;
     const [loginObj, setLoginObj] = useState({});
     let navigate = useNavigate();
@@ -40,7 +39,7 @@ function SignIn(props) {
 
         const {email, password} = loginObj;
         try {
-            const createdUser = await signInWithEmailAndPassword(auth, email, password)
+            await signInWithEmailAndPassword(auth, email, password)
             navigate("../home", { replace: true });
 
         } catch (error) {
