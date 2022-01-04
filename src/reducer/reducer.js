@@ -13,5 +13,5 @@ export default combineReducers({
     products: productsReducer,
     admin : adminReducer,
     snackbar: snackbarReducer,
-    homeloading : homeReducer
+    homeloading : homeReducer,
 })

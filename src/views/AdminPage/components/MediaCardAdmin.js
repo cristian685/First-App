@@ -4,13 +4,18 @@ import { Link } from'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
     Card,
-    CardMedia,
     CardActions,
     CardContent,
     Button,
     Typography,
-} from '@mui/material'
+    Container,
+    Avatar,
+} from '@mui/material';
 
+import CardMediaCustom from "../../../components/CardMediaCustom";
+import DialogCustom from "../../../components/DialogCustom";
+import AddElement from "./AddElement";
+import AddIcon from "@mui/icons-material/Add";
 
 
 const useStyles = makeStyles({
@@ -23,47 +28,60 @@ const useStyles = makeStyles({
 
 export default function MediaCardAdmin(props) {
 
+    const [openDialog, setOpenDialog] = useState(false);
+
     const classes = useStyles();
     const { post, onDelete } = props;
     const { adress, id, name , price ,contact ,program } = post;
+    console.log('post', post)
     const handleOnDelete=()=>{
         onDelete(id);
     }
+   const handleToggleElement = () => {
+         setOpenDialog(!openDialog)
+    }
+    const handleChangeProduct = () => {
+
+    }
+    const handleChangeImage= () => {
+
+    }
+    const handleCreateProduct= () => {
+
+    }
+
     return (
         <Card className={classes.mediaCard} >
             <Link to='/terenuri/${id}'>
-                <CardMedia
-                    component="img"
-                    image={post.url}
-                    alt={post.model}
-                />
+                <CardMediaCustom idImage={id}/>
             </Link>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
+                    <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
                     {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {adress}
+                   Adresa: {adress}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {contact}
+                   Contact: {contact}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {program}
+                   Program: {program}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
-                    {price}
+                   Pret/h: {price} RON
                 </Typography>
             </CardContent>
 
             <CardActions>
                 <Button
+                    onClick={handleToggleElement}
                     display='flex'
-                    to={`/terenuri/${id}`}
-                    component={Link}
+                    // to={`/terenuri/${id}`}
+                    // component={Link}
                     variant="outlined"
                     color="primary"
-                >Learn More</Button>
+                >Edit element</Button>
                 <Button
                     onClick={handleOnDelete}
                     display='flex'
@@ -71,6 +89,12 @@ export default function MediaCardAdmin(props) {
                     color="primary"
                 >Delete</Button>
             </CardActions>
+            <DialogCustom open={openDialog} onClose={handleToggleElement}>
+                <Typography component="h1" variant="h5">
+                    Edit elements
+                </Typography>
+                <AddElement element={post} onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
+            </DialogCustom>
         </Card>
     );
 }

@@ -6,59 +6,63 @@ import MediaCard from './components/MediaCard';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import SelectBar from "../../components/SelectBar";
+import SearchInput from "../../components/SearchImput";
 
 function Products(props) {
+    const { loading , products } = props
+    const [searchText , setSearchText ] =useState("")
+    const handleOnChange=(event) => {
+        setSearchText(event.target.value)
+    }
 
-
-
-    const {loading , products} =props
+    const filteredProducts = products.filter(item => item?.name.includes(searchText))
 
     useEffect(() => {
         props.dispatchSetProducts()
         ;
     },[] );
 
+    return (
+        <div >
+            <Box
+                sx={{
+                    marginTop: 5,
+                    marginLeft:5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 'auto',
+                }}>
+            <SearchInput onSearchChanged={handleOnChange}/>
+            <SelectBar/>
+            </Box>
+            {loading &&  <LoadingComponent/>}
+            <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 'auto',
+                    }}>
+                    <Typography component="h1" variant='h6' gutterBottom>In Brasov : </Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}>
+                        {filteredProducts.map(product => {
+                            return <MediaCard
+                                key={product.id}
+                                post={product}
 
-    if(loading)
-    {
-        return <div >
-            <h1>
-            <LoadingComponent/>
-        </h1>
+                            />
+                        })}
+                    </Box>
+
+                </Box>
+            </Container>
         </div>
-    }
-    return<div >
-        {products.map( product =>{
-                return(
-                    <Container component="main" maxWidth="lg">
-                        <Box
-                            sx={{
-                                marginTop: 8,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: 'auto',
-                            }}>
-                            <Typography component="h1" variant='h6' gutterBottom>Terenuri</Typography>
-                            <Box
-                                sx={{
-                                    marginTop: 8,
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                }}>
-                                {products.map(product => {
-                                    return <MediaCard
-                                        key={product.id}
-                                        post={product}
-
-                                    />
-                                })}
-                            </Box>
-
-                        </Box>
-                    </Container>
-                )
-            })}
-    </div>
+    )
 }
 
 const mapStateToProps = state => {

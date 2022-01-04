@@ -14,13 +14,19 @@ const productsReducer = (state = initialState, action) => {
                 products: action.products,
             }
         case IS_LOAD:
-        return {
-            ...state,
-            loading: action.loading
-        }
+            return {
+                ...state,
+                loading: action.loading
+            }
+
+        case SET_RESERVATIONS:
+            return {
+                ...state,
+                reservations: action.reservations
+            }
 
         default:
-            return initialState
+            return state
     }
 }
 

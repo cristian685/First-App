@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InfoIcon from '@mui/icons-material/Info';
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 import {
     Container,
     Toolbar,

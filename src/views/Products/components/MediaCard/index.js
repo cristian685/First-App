@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from'react-router-dom';
-
 import { makeStyles } from '@mui/styles';
 import {
     Card,
@@ -9,62 +8,48 @@ import {
     CardContent,
     Button,
     Typography,
+    Box,
 } from '@mui/material'
 
-
-
-const useStyles = makeStyles({
-    mediaCard: {
-        maxWidth: 250,
-        minWidth: 250,
-        margin: 10,
-    }
-})
+import CardMediaCustom from "../../../../components/CardMediaCustom";
+import ProductsDialog from "./ProductsDialog";
 
 export default function MediaCard(props) {
-
-    const classes = useStyles();
     const { post } = props;
-    const { adress, id, name , price ,contact ,program } = post;
-
+    const { adress, id, name , price ,contact, program } = post;
 
     return (
-        <Card className={classes.mediaCard} >
+        <Card sx={{ display: 'flex' ,maxHeight:280  , marginTop:3}} >
+            <Box sx={{ display: 'flex', flexDirection: 'column' , maxHeight:280 ,
+                maxWidth:280, margin: 0 , marginTop:6 }}>
             <Link to='/terenuri/${id}'>
-                <CardMedia
-                    component="img"
-                    image={post.url}
-                    alt={post.model}
-                />
+                <CardMediaCustom idImage={id}/>
             </Link>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column' ,minWidth: 150,
+                margin: 1 , }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
                     {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {adress}
+                    Adresa: {adress}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {contact}
+                    Contact: {contact}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {program}
+                    Program: {program}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
-                    {price}
+                    Pret/h: {price} RON
                 </Typography>
             </CardContent>
-
-            <CardActions>
-                <Button
-                    display='flex'
-                    to={`/terenuri/${id}`}
-                    component={Link}
-                    variant="outlined"
-                    color="primary"
-                >Learn More</Button>
-
-            </CardActions>
+                <CardActions>
+                    <ProductsDialog teren={post}/>
+                </CardActions>
+            </Box>
         </Card>
     );
 }
+

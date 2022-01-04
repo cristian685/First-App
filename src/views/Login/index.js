@@ -15,11 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useContext, useState} from "react";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
 import {auth} from "../../config/firebaseConfig";
-import {
-     onAuthStateChanged
- } from 'firebase/auth'
 import UserLogged from "./UserLogged"
-import {UserContext} from "../../components/context/UserContext";
 import {connect} from "react-redux";
 import {openSnackbar} from "../../components/SnackbarCustom/actions";
 import  {useNavigate}  from "react-router-dom"
@@ -29,7 +25,7 @@ const theme = createTheme();
 function SignIn(props) {
 
     const {dispatchOpenSnackbar}=props;
-    const [user, setUser] = useState(null);
+    const {dispatchOpenSnackbar}=props;
     const [loginObj, setLoginObj] = useState({});
     let navigate = useNavigate();
 
@@ -40,17 +36,12 @@ function SignIn(props) {
         })
     }
 
-    const currentUser= useContext(UserContext)
-    console.log(user)
-
-
-
     const handleLoginClick = async () => {
 
         const {email, password} = loginObj;
         try {
             const createdUser = await signInWithEmailAndPassword(auth, email, password)
-            navigate("../products", { replace: true });
+            navigate("../home", { replace: true });
 
         } catch (error) {
             dispatchOpenSnackbar('error' , error.message)
@@ -58,25 +49,9 @@ function SignIn(props) {
         }
     }
 
-    onAuthStateChanged(auth, (currentUser) => {
-         setUser(currentUser);
-     });
-
-    const handleLogout = () => {
-        signOut(auth);
-    }
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
+    // onAuthStateChanged(auth, (currentUser) => {
+    //      setUser(currentUser);
+    //  });
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -98,7 +73,7 @@ function SignIn(props) {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -146,22 +121,7 @@ function SignIn(props) {
                         </Grid>
                     </Box>
                 </Box>
-
-                <Box sx={{ margin: 10 }}>
-                                     Auth user: {user?.email}
-
-                                     <Button onClick={handleLogout}>
-                                         Log out
-                                     </Button>
-                </Box>
             </Container>
-            <UserContext.Consumer>
-                {currentUser => {
-                    return <div>
-                        {currentUser?.email}
-                    </div>
-                }}
-            </UserContext.Consumer>
         </ThemeProvider>
 
     );

@@ -1,25 +1,44 @@
 import React from 'react';
-import './home.css'
 import CustomButton from "../../components/CustomButton"
-import LoadingComponent from "../../components/Loading";
-import {isLoading} from "../AdminPage/actions";
+import {Box} from "@mui/material";
+import {Link} from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+// import Background from'../../components/Background'
+import HomeNav from "../../components/HomeNav";
 
 
 
-export default function Home(props) {
-    const {loading} =props.
-    if(loading)
-    {
-        return <div >
-            <h1>
-                <LoadingComponent/>
-            </h1>
-        </div>
-    }
-    return <div className="pageWrapHome">
-
-                     Home Page
-
-                    <CustomButton />
-            </div>
+export default function Home() {
+    return (
+        <div className="pageWrapHome">
+            <HomeNav/>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 20,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                        <Link to="/products">
+                            <CustomButton class="CustomButton "
+                                          sx={{ my: 2, color: 'white', display: 'block' }}
+                                          text="Inchiriaza teren">
+                            </CustomButton>
+                        </Link>
+                        <Link to="/">
+                            <CustomButton class="CustomButton "
+                                          sx={{ my: 2, color: 'white', display: 'block' }}
+                                          text="Competitii">
+                            </CustomButton>
+                        </Link>
+                    </Box>
+                </Box>
+            </Container>
+         </div>
+    )
 }
