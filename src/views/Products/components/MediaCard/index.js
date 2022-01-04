@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
@@ -14,6 +14,8 @@ import { purple } from '@mui/material/colors';
 import {ThemeProvider} from "@emotion/react";
 import CardMediaCustom from "../../../../components/CardMediaCustom";
 import Box from "@mui/material/Box";
+import DialogCustom from "../../../../components/DialogCustom";
+import ProductsDialog from "./ProductsDialog";
 const theme = createTheme({
     palette: {
         primary: {
@@ -34,10 +36,16 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
 
+
+    const [activeTeren, setActiveTeren] = useState("");
     const classes = useStyles();
     const { post } = props;
     const { adress, id, name , price ,contact ,program } = post;
 
+
+    const handleToggleElement = (id) => () => {
+        setActiveTeren(id)
+    }
 
     return (
         <Card sx={{ display: 'flex' ,maxHeight:280  , marginTop:3}} >
@@ -69,14 +77,18 @@ export default function MediaCard(props) {
                 <CardActions>
                 <ThemeProvider theme={theme}>
                 <Button
+                    // onClick={handleToggleElement(id)}
                     display='flex'
-                    to={`/terenuri/${id}`}
-                    component={Link}
+                    // to={`/terenuri/${id}`}
+                    // component={Link}
                     variant="contained"
                     color="secondary"
                 >Fa o rezervare</Button>
                     </ThemeProvider>
                 </CardActions>
+                <DialogCustom open={!activeTeren} onClose={handleToggleElement(" ")}>
+                    <ProductsDialog/>
+                </DialogCustom>
             </Box>
         </Card>
     );

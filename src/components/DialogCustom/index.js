@@ -10,7 +10,6 @@ function DialogCustom(props) {
             open={open}
             onClose={onClose}
         >
-            <DialogTitle>Optional sizes</DialogTitle>
 
             <DialogContent dividers>
                 {children}
