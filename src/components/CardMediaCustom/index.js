@@ -25,7 +25,6 @@ function CardMediaCustom(props) {
     else {
         return (
             <CardMedia
-
                 component="img"
                 height="150"
                 width='200'

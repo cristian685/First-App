@@ -13,23 +13,23 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import MediaCardAdmin from "./components/MediaCardAdmin";
 import LoadingComponent from "../../components/Loading";
+import AddElement from "./components/AddElement";
 
 
 
     function Admin(props) {
 
-    const [newProduct ,setNewProduct] = useState({})
+    const [newProduct ,setNewProduct] = useState({});
+    const [previewImage, setPreviewImage] = useState('')
     const {loading, products ,dispatchCreateProduct,dispatchDeleteProduct} =props
     const[image , setImage ] = useState(null);
 
-        const handleChangeImage = e =>{
-            if(e.target.files[0]){
-                setImage(e.target.files[0]);
-                console.log(e.target.files)
-            }
+        const handleChangeImage = image =>{
+                setImage(image);
+                setPreviewImage(URL.createObjectURL(image))
         }
     const handleCreateProduct = () => {
-        dispatchCreateProduct({...newProduct, image: image});
+        dispatchCreateProduct({...newProduct, image: image[0]});
     }
 
     const handleChangeProduct= (type) => (event) =>{
@@ -54,98 +54,7 @@ import LoadingComponent from "../../components/Loading";
     }
     return (
         <Container component="main" maxWidth="xs">
-            <Box
-                sx={{
-                    flex: 'auto',
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}>
-                <Avatar sx={{ m: 1, bgcolor: '#008CBA' }}>
-                    <AddIcon/>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Add elements to the database
-                </Typography>
-                <Box noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        id="text"
-                        label="Nume"
-                        type = "text"
-                        name="text"
-                        autoFocus
-                        onChange={handleChangeProduct('name')}
-
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        type="number"
-                        id="price"
-                        label="Price"
-                        name="price"
-                        autoFocus
-                        onChange={handleChangeProduct('price')}
-
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        type="number"
-                        id="contact"
-                        label="Contact"
-                        name="contact"
-                        autoFocus
-                        onChange={handleChangeProduct('contact')}
-
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        type="text"
-                        id="program"
-                        label="Program"
-                        name="program"
-                        autoFocus
-                        onChange={handleChangeProduct('program')}
-
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        type="text"
-                        id="adress"
-                        label="Adress"
-                        name="adress"
-                        autoFocus
-                        onChange={handleChangeProduct('adress')}
-
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        type="file"
-                        id="file"
-                        label="file"
-                        name="file"
-                        autoFocus
-                        onChange={handleChangeImage}
-
-                    />
-                    <Button
-                        onClick={handleCreateProduct}
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}>
-                        Add element
-                    </Button>
-
-
-                    <Divider/>
-                </Box>
+                <AddElement previewImage={previewImage}  onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
                 <Box>
                     {products.map(product => {
                         return <MediaCardAdmin
@@ -155,7 +64,6 @@ import LoadingComponent from "../../components/Loading";
                         />
                     })}
 
-                </Box>
             </Box>
         </Container>
 
