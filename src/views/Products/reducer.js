@@ -1,9 +1,12 @@
-import {SET_PRODUCTS , IS_LOAD} from "./constants";
+import {
+    SET_PRODUCTS , IS_LOAD,  SET_RESERVATIONS
+} from "./constants";
 
 
 const initialState={
-   products:[],
-    loading:false,
+   products: [],
+   reservations: [],
+   loading:false,
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -14,13 +17,19 @@ const productsReducer = (state = initialState, action) => {
                 products: action.products,
             }
         case IS_LOAD:
-        return {
-            ...state,
-            loading: action.loading
-        }
+            return {
+                ...state,
+                loading: action.loading
+            }
+
+        case SET_RESERVATIONS:
+            return {
+                ...state,
+                reservations: action.reservations
+            }
 
         default:
-            return initialState
+            return state
     }
 }
 

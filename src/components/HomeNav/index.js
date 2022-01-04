@@ -24,12 +24,13 @@ import {
 } from '@mui/material'
 
 import { Menu, KeyboardArrowRight } from '@mui/icons-material';
-import companyLogo from "../../images/logo.png";
+// import appLogo from "../../images/app-logo.png";
 
 import { createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
+
 import {ThemeProvider} from "@emotion/react";
-import Link from "@mui/material/Link";
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -131,7 +132,8 @@ function Navbar() {
                                 component="div"
                                 sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
                             >
-                                <img className={classes.photo} src={companyLogo}/>
+                                Logo
+                            {/*    <img className={classes.photo} src={appLogo}/>*/}
                             </Typography>
 
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

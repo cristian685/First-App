@@ -19,8 +19,7 @@ export default function LoadingComponent() {
     const classes = useStyles()
     return(
         <div className={classes.parentLoaderClass}>
-            <ClipLoader className={classes.loaderCustom}
-            />
+            <ClipLoader className={classes.loaderCustom} />
         </div>
     )
 }

@@ -24,7 +24,7 @@ import {
 } from '@mui/material'
 
 import { Menu, KeyboardArrowRight } from '@mui/icons-material';
- import companyLogo from "../../images/logo.png";
+/* import companyLogo from "../../images/logo.png"; */
 
 import { createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
@@ -130,7 +130,8 @@ function Navbar() {
                         component="div"
                         sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
                     >
-                        <img className={classes.photo} src={companyLogo}/>
+                        Logo
+                       {/* <img className={classes.photo} src={companyLogo}/>*/}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

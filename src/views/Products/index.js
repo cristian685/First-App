@@ -10,7 +10,7 @@ import SelectBar from "../../components/SelectBar";
 import SearchInput from "../../components/SearchImput";
 
 function Products(props) {
-    const {loading , products} =props
+    const { loading , products } = props
     const [searchText , setSearchText ] =useState("")
     const handleOnChange=(event) => {
         setSearchText(event.target.value)
@@ -23,13 +23,6 @@ function Products(props) {
         ;
     },[] );
 
-
-    if(loading)
-    {
-        return (
-            <LoadingComponent/>
-        )
-    }
     return<div >
         <Box
             sx={{
@@ -42,6 +35,7 @@ function Products(props) {
         <SearchInput onSearchChanged={handleOnChange}/>
         <SelectBar/>
         </Box>
+        {loading &&  <LoadingComponent/>}
                     <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
                         <Box
                             sx={{
