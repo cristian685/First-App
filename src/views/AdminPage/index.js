@@ -26,7 +26,7 @@ import AddElement from "./components/AddElement";
 
         const handleChangeImage = image =>{
                 setImage(image);
-                setPreviewImage(URL.createObjectURL(image))
+                setPreviewImage(image)
         }
     const handleCreateProduct = () => {
         dispatchCreateProduct({...newProduct, image: image[0]});
@@ -53,7 +53,14 @@ import AddElement from "./components/AddElement";
         )
     }
     return (
+        <Box marginTop={2}>
         <Container component="main" maxWidth="xs">
+            <Typography component="h1" variant="h5">
+                Add elements to the database
+            </Typography>
+            <Avatar sx={{ m: 1, bgcolor: '#008CBA' }}>
+                <AddIcon/>
+            </Avatar>
                 <AddElement previewImage={previewImage}  onChangeProduct={handleChangeProduct} onChangeImage={handleChangeImage} onSaveProduct={handleCreateProduct}/>
                 <Box>
                     {products.map(product => {
@@ -66,9 +73,7 @@ import AddElement from "./components/AddElement";
 
             </Box>
         </Container>
-
-
-
+        </Box>
     )
 }
 

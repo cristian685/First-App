@@ -16,7 +16,7 @@ function DropzoneCustom(props) {
             console.log('redear', reader.result)
         }
 
-        console.log('acceptedFiles', acceptedFiles,URL.createObjectURL(acceptedFiles))
+        console.log('acceptedFiles', acceptedFiles)
     }
     return (
         <Dropzone onDrop={handleOnDrop}>
