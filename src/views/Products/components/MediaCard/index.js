@@ -35,17 +35,10 @@ const useStyles = makeStyles({
 
 
 export default function MediaCard(props) {
-
-
-    const [activeTeren, setActiveTeren] = useState("");
-    const classes = useStyles();
     const { post } = props;
-    const { adress, id, name , price ,contact ,program } = post;
+    const { adress, id, name , price ,contact, program } = post;
 
 
-    const handleToggleElement = (id) => () => {
-        setActiveTeren(id)
-    }
 
     return (
         <Card sx={{ display: 'flex' ,maxHeight:280  , marginTop:3}} >
@@ -75,21 +68,10 @@ export default function MediaCard(props) {
                 </Typography>
             </CardContent>
                 <CardActions>
-                <ThemeProvider theme={theme}>
-                <Button
-                    // onClick={handleToggleElement(id)}
-                    display='flex'
-                    // to={`/terenuri/${id}`}
-                    // component={Link}
-                    variant="contained"
-                    color="secondary"
-                >Fa o rezervare</Button>
-                    </ThemeProvider>
+                    <ProductsDialog teren={post}/>
                 </CardActions>
-                <DialogCustom open={!activeTeren} onClose={handleToggleElement(" ")}>
-                    <ProductsDialog/>
-                </DialogCustom>
             </Box>
         </Card>
     );
 }
+

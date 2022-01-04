@@ -3,6 +3,7 @@ import {database} from "../config/firebaseConfig";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 
 const productCollectionRef = collection(database,"terenuri");
+const productReservationRef = collection(database,"intervalRezervare");
 
 export const fetchProductsService = async () => {
     return await getDocs(productCollectionRef).then(response => {
@@ -47,4 +48,25 @@ export const uploadImagesFirebase = async (image , idDoc) => {
 export const deleteImageService = async (image , id) => {
     const elementDoc = doc(database , "terenuri" , id);
     await deleteDoc(elementDoc)
+}
+
+
+export const fetchReservationService = async () => {
+    return await getDocs(productReservationRef).then(response => {
+        return response.docs.map(doc => {
+            return {...doc.data() , id: doc.id}
+        })
+    }).catch(error => console.log(error));
+
+}
+
+export const addReservationService = async (reservation) => {
+    return await addDoc(productReservationRef , reservation).then(response => {
+        if (response.id) {
+            return response.id;
+        } else {
+            return '';
+        }
+
+    }).catch(error =>console.log(error));
 }

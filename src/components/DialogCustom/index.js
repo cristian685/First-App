@@ -1,22 +1,24 @@
 import React from 'react';
-import {Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
-import Button from "@mui/material/Button";
+import {
+    Dialog, DialogActions, DialogContent, DialogTitle, Button
+} from "@mui/material";
 
 function DialogCustom(props) {
-    const {onClose, open, children} = props;
+    const { onClose, onConfirm,  open, children, dialogConfirmLabel, dialogTitle, maxWidth = 'md' } = props;
     return (
         <Dialog
-            maxWidth='md'
+            maxWidth={maxWidth}
+            fullWidth
             open={open}
             onClose={onClose}
         >
-
+            <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent dividers>
                 {children}
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onConfirm}>{dialogConfirmLabel}</Button>
             </DialogActions>
         </Dialog>
     )
