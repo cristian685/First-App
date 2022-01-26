@@ -3,10 +3,10 @@ import {
     IS_LOAD,
     SET_RESERVATIONS
 } from"./constants";
-
+import {getReservationsById} from '../../actions/reservationActions'
 import {
     addReservationService,
-    fetchProductsService,
+    fetchProductsService, fetchReservationsById,
     fetchReservationService,
 } from '../../services/firebaseService';
 import {
@@ -31,45 +31,6 @@ export const getProduct = () => {
     }
 
 }
-
-export const getReservations = () => {
-    debugger
-    return async(dispatch) => {
-        dispatch(isLoading(true));
-        try {
-            const reservations = await fetchReservationService()
-            dispatch( {
-                type: SET_RESERVATIONS,
-                reservations: reservations
-            })
-        }
-        catch(errors) {
-            console.log(errors)
-        }
-        dispatch(isLoading(false))
-    }
-
-}
-
-export const addReservation = reservation => {
-    return async(dispatch) => {
-        dispatch(isLoading(true))
-        try{
-            const responseReservationId = await addReservationService(reservation);
-            if (responseReservationId)
-            {
-                dispatch(getReservations())
-                dispatch(openSnackbar('success', 'S-a creat rezervarea'))
-            }
-            dispatch(isLoading(false));
-        }
-        catch(errors) {
-            dispatch(openSnackbar('error', errors.message))
-        }
-        dispatch(isLoading(false))
-    }
-}
-
 
 export const isLoading= (loading) => {
     return {

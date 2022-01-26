@@ -4,7 +4,7 @@ import {Box} from "@mui/material";
 import {Link} from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-// import Background from'../../components/Background'
+import Background from'../../components/Background'
 import HomeNav from "../../components/HomeNav";
 
 
@@ -13,7 +13,9 @@ export default function Home() {
     return (
         <div className="pageWrapHome">
             <HomeNav/>
-            <Container component="main" maxWidth="xs">
+            <Box sx={{marginTop:2}}>
+        <Background/>
+        <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -39,6 +41,7 @@ export default function Home() {
                     </Box>
                 </Box>
             </Container>
+        </Box>
          </div>
     )
 }
