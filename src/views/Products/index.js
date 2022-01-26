@@ -37,7 +37,7 @@ function Products(props) {
             <SelectBar/>
             </Box>
             {loading &&  <LoadingComponent/>}
-            <Container component="main" maxWidth="lg" sx={{marginLeft:50 , marginTop:-18}}>
+            <Container component="main" maxWidth="lg" sx={{marginLeft:45 , marginTop:-18}}>
                 <Box
                     sx={{
                         display: 'flex',
@@ -54,11 +54,9 @@ function Products(props) {
                             return <MediaCard
                                 key={product.id}
                                 post={product}
-
                             />
                         })}
                     </Box>
-
                 </Box>
             </Container>
         </div>

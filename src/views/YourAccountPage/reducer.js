@@ -1,26 +1,18 @@
-    import {SET_PRODUCTS, IS_LOADING, SET_RESERVATIONS} from "./constants";
-
-
+import { IS_LOADING, SET_RESERVATIONS_BY_USER} from "./constants";
 
 const initialState={
-    products:[],
     loading:false,
     reservations:[],
 };
 
-const adminReducer = (state = initialState, action) => {
+const userAccountReducer = (state = initialState, action) => {
     switch(action.type) {
-        case SET_PRODUCTS:
-            return {
-                ...state,
-                products: action.products,
-            }
         case IS_LOADING:
             return {
                 ...state,
                 loading: action.loading
             }
-        case SET_RESERVATIONS:
+        case SET_RESERVATIONS_BY_USER:
             return {
                 ...state,
                 reservations: action.reservations
@@ -31,4 +23,4 @@ const adminReducer = (state = initialState, action) => {
     }
 }
 
-export default adminReducer
+export default userAccountReducer

@@ -1,20 +1,13 @@
-    import {SET_PRODUCTS, IS_LOADING, SET_RESERVATIONS} from "./constants";
-
-
+import { IS_LOADING, SET_RESERVATIONS} from "../constants/reservationConstants";
 
 const initialState={
-    products:[],
+    reservationsById :[],
     loading:false,
     reservations:[],
 };
 
 const adminReducer = (state = initialState, action) => {
     switch(action.type) {
-        case SET_PRODUCTS:
-            return {
-                ...state,
-                products: action.products,
-            }
         case IS_LOADING:
             return {
                 ...state,

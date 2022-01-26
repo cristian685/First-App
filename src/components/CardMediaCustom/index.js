@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from "react";
-import {CardMedia} from "@mui/material";
 import {connect} from "react-redux";
+import {CardMedia} from "@mui/material";
 import {getImage} from "./actions";
 import LoadingComponent from "../Loading"
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
 
 function CardMediaCustom(props) {
-    const {idImage}= props
+    const {idImage , folderId ,height ,width}= props
     const [loading, setLoading]=useState(false);
     const [picture, setPicture]=useState(null);
 
-    const handleCallback = pic => {
+    const handleCallback = (url) => {
         setLoading(false)
-        setPicture(pic)
+        setPicture(url)
     }
     useEffect(() => {
         setLoading(true)
-       props.dispatchGetImage(idImage, handleCallback)
+       props.dispatchGetImage(folderId ,idImage, handleCallback)
 
     },[] );
     if(loading)
@@ -26,8 +28,8 @@ function CardMediaCustom(props) {
         return (
             <CardMedia
                 component="img"
-                height="150"
-                width='200'
+                height={height}
+                width={width}
                 image={picture}
             />
         )

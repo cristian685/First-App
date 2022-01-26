@@ -8,18 +8,33 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import Checkbox from '@mui/material/Checkbox';
+import {createTheme} from "@mui/material/styles";
+import {purple} from "@mui/material/colors";
+import {ThemeProvider} from "@emotion/react";
 
-export default function CustomTable(props) {
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: purple[500],
+        },
+        secondary: {
+            main: '#1b5e20',
+        },
+    },
+});
+
+export default function ReservationTimePicker(props) {
     const { onChange, list, checkIntervals } = props;
 
     const handleOnChange = row => () => {
         onChange(row)
     }
     return (
+        <ThemeProvider theme={theme}>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 350 }} aria-label="simple table">
                 <TableHead>
-                    <TableRow>
+                    <TableRow >
                         <TableCell>Ora rezervarii</TableCell>
                         <TableCell align="right">Rezervare</TableCell>
 
@@ -50,5 +65,6 @@ export default function CustomTable(props) {
                 </TableBody>
             </Table>
         </TableContainer>
+        </ThemeProvider>
     );
 }

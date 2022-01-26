@@ -18,7 +18,6 @@ function SnackbarCustom(props) {
     const open=!!type;
 
 
-    console.log(type , message)
 
     const handleCloseSnackbar = () => {
         dispatchCloseSnackbar();

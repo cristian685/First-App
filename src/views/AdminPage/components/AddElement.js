@@ -3,7 +3,8 @@ import { Button, CardMedia, TextField} from "@mui/material";
 import DropzoneCustom from "../../../components/CustomDropzone";
 
 function AddElement(props) {
-    const {onChangeProduct, onChangeImage, onSaveProduct, element, previewImage} = props;
+    const {onChangeProduct, onChangeImage, onSaveClick, element, previewImage} = props;
+
     return (
         <>
             <TextField
@@ -14,7 +15,6 @@ function AddElement(props) {
                 label="Nume"
                 type = "text"
                 name="text"
-                autoFocus
                 onChange={onChangeProduct('name')}
 
             />
@@ -26,7 +26,6 @@ function AddElement(props) {
                 id="price"
                 label="Price"
                 name="price"
-                autoFocus
                 onChange={onChangeProduct('price')}
 
             />
@@ -38,7 +37,6 @@ function AddElement(props) {
                 id="contact"
                 label="Contact"
                 name="contact"
-                autoFocus
                 onChange={onChangeProduct('contact')}
 
             />
@@ -50,7 +48,6 @@ function AddElement(props) {
                 id="program"
                 label="Program"
                 name="program"
-                autoFocus
                 onChange={onChangeProduct('program')}
 
             />
@@ -64,24 +61,43 @@ function AddElement(props) {
                 id="adress"
                 label="Adress"
                 name="adress"
-                autoFocus
                 onChange={onChangeProduct('adress')}
 
+                />
+            <TextField
+                margin="normal"
+                fullWidth
+                multiline
+                defaultValue={element?.lat}
+                type="number"
+                id="lat"
+                label="Lat"
+                name="lat"
+                onChange={onChangeProduct('lat')}
+
             />
-            {previewImage && <CardMedia
-                component="img"
-                height="50"
-                width='50'
-                image={previewImage}
-            />}
-                <DropzoneCustom onChangeImage={onChangeImage}/>
-                <Button
-                    onClick={onSaveProduct}
+            <TextField
+                margin="normal"
+                fullWidth
+                multiline
+                defaultValue={element?.lng}
+                type="number"
+                id="lng"
+                label="Lng"
+                name="Lng"
+                onChange={onChangeProduct('lng')}
+
+            />
+                <TextField
+                    margin="normal"
                     fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}>
-                    Add element
-                </Button>
+                    type="file"
+                    id="file"
+                    label="file"
+                    name="file"
+                    onChange={onChangeImage}
+
+                />
             </>
     )
 }

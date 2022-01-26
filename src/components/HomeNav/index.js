@@ -1,13 +1,9 @@
 import React, {useState, useContext } from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {
     signOut
 } from 'firebase/auth'
-import { auth }from '../../config/firebaseConfig'
-import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { UserContext } from '../../context/UserContext'
-import { ThemeContext } from '../../context/ThemeContext'
 import {
     AppBar,
     Box,
@@ -20,16 +16,20 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Tooltip
+    Tooltip,
+    Avatar,
+    Container
 } from '@mui/material'
 
 import { Menu, KeyboardArrowRight } from '@mui/icons-material';
-// import appLogo from "../../images/app-logo.png";
-
 import { createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
-
 import {ThemeProvider} from "@emotion/react";
+import appLogo from "../../images/logo.png";
+import { UserContext } from '../../context/UserContext'
+import { ThemeContext } from '../../context/ThemeContext'
+import { auth }from '../../config/firebaseConfig'
+
 
 const theme = createTheme({
     palette: {
@@ -37,7 +37,7 @@ const theme = createTheme({
             main: purple[500],
         },
         secondary: {
-            main: '#1b5e20',
+            main: '#003333',
         },
     },
 });
@@ -69,9 +69,14 @@ function Navbar() {
     const classes = useStyles();
     const userContext  = useContext(UserContext);
     const themeContext  = useContext(ThemeContext);
-    let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+    // let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+    let nameFromEmail = userContext?.displayName
     const [isOpen, setDrawerOpen ] = useState()
-    const handleOpenUserMenu = () => {}
+    let navigate = useNavigate();
+
+    const handleOpenUserMenu = () => {
+        navigate("../youraccount", { replace: true });
+    }
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
@@ -95,6 +100,29 @@ function Navbar() {
                 onKeyDown={toggleDrawer}
             >
                 <List>
+                    Hi , {nameFromEmail} . Welcome back
+                    <ListItem
+                        button
+                        component={NavLink}
+                        to="/contact"
+                        className={({isActive}) => isActive ? classes.active: ''}
+                    >
+                        <ListItemIcon>
+                            <KeyboardArrowRight  color="inherit"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Contact" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        component={NavLink}
+                        to="/about"
+                        className={({isActive}) => isActive ? classes.active: ''}
+                    >
+                        <ListItemIcon>
+                            <KeyboardArrowRight  color="inherit"/>
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
+                    </ListItem>
                     <ListItem
                         button
                         component={NavLink}
@@ -104,7 +132,18 @@ function Navbar() {
                         <ListItemIcon>
                             <KeyboardArrowRight  color="inherit"/>
                         </ListItemIcon>
-                        <ListItemText primary="Products" />
+                        <ListItemText primary="Inchiriaza teren" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        // component={NavLink}
+                        onClick={handleLogout}
+                        className={({isActive}) => isActive ? classes.active: ''}
+                    >
+                        <ListItemIcon>
+                            <KeyboardArrowRight  color="inherit"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Log out" />
                     </ListItem>
                 </List>
             </Box>
@@ -132,8 +171,7 @@ function Navbar() {
                                 component="div"
                                 sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
                             >
-                                Logo
-                            {/*    <img className={classes.photo} src={appLogo}/>*/}
+                                <img className={classes.photo} src={appLogo}/>
                             </Typography>
 
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -161,22 +199,19 @@ function Navbar() {
                                 </Button>
                                     <UserContext.Consumer>
                                         {user => {
-                                            console.log(user);
                                             if (user) {
                                                 return (
                                                     <Box sx={{ flexGrow: 0, marginLeft:'auto', display: { xs: 'none', md: 'flex' } }}>
-                                                    <Box sx={{ flexGrow: 0 , marginLeft:'10px' , marginRight:'10px' }}>
+
                                                         <Tooltip title={userContext?.email}>
                                                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                                                <Avatar alt={userContext?.email} src="/static/images/avatar/2.jpg"/>
+                                                                <Avatar alt={userContext?.email} src={userContext?.photoURL}/>
                                                             </IconButton>
                                                         </Tooltip>
-                                                    </Box>
-                                                <Box sx={{ flexGrow: 0 , marginLeft:'10px' , marginRight:'10px' }}>
-                                                    <div>
-                                                        Hi , {nameFromEmail} . Welcome back
-                                                    </div>
-                                                </Box>
+                                                        <Box sx={{ flexGrow: 0 , marginTop:2.5 , marginLeft:2 , marginRight:2 }}>
+
+                                                                Hi , {nameFromEmail} . Welcome back
+                                                        </Box>
                                                         <Button
                                                             sx={{my: 2, color: 'white', display: 'block'}}
                                                             onClick={handleLogout}

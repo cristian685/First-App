@@ -1,13 +1,10 @@
 import React, {useState, useContext } from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {
     signOut
 } from 'firebase/auth'
-import { auth }from '../../config/firebaseConfig'
 import { Avatar, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { UserContext } from '../../context/UserContext'
-import { ThemeContext } from '../../context/ThemeContext'
 import {
     AppBar,
     Box,
@@ -22,20 +19,23 @@ import {
     ListItemText,
     Tooltip
 } from '@mui/material'
-
-import { Menu, KeyboardArrowRight } from '@mui/icons-material';
-/* import companyLogo from "../../images/logo.png"; */
-
 import { createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
 import {ThemeProvider} from "@emotion/react";
+import { Menu, KeyboardArrowRight } from '@mui/icons-material';
+import companyLogo from "../../images/logo.png";
+import { UserContext } from '../../context/UserContext'
+import { ThemeContext } from '../../context/ThemeContext'
+import { auth }from '../../config/firebaseConfig'
+
+
 const theme = createTheme({
     palette: {
         primary: {
             main: purple[500],
         },
         secondary: {
-            main: '#1b5e20',
+            main: '#003333',
         },
     },
 });
@@ -67,15 +67,21 @@ function Navbar() {
     const classes = useStyles();
     const userContext  = useContext(UserContext);
     const themeContext  = useContext(ThemeContext);
-    let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+     //let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+    const displayName = userContext?.displayName
     const [isOpen, setDrawerOpen ] = useState()
-    const handleOpenUserMenu = () => {}
+    let navigate = useNavigate();
+
+    const handleOpenUserMenu = () => {
+        navigate("../youraccount", { replace: true });
+    }
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
 
     const handleLogout = () => {
             signOut(auth);
+        navigate("../home", { replace: true });
     }
 
     return <>
@@ -96,13 +102,24 @@ function Navbar() {
                     <ListItem
                         button
                         component={NavLink}
+                        to="/home"
+                        className={({isActive}) => isActive ? classes.active: ''}
+                    >
+                        <ListItemIcon>
+                            <KeyboardArrowRight  color="inherit"/>
+                        </ListItemIcon>
+                        <ListItemText primary="Home" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        component={NavLink}
                         to="/products"
                         className={({isActive}) => isActive ? classes.active: ''}
                     >
                         <ListItemIcon>
                             <KeyboardArrowRight  color="inherit"/>
                         </ListItemIcon>
-                        <ListItemText primary="Products" />
+                        <ListItemText primary="Inchiriaza teren" />
                     </ListItem>
                 </List>
             </Box>
@@ -130,8 +147,7 @@ function Navbar() {
                         component="div"
                         sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}
                     >
-                        Logo
-                       {/* <img className={classes.photo} src={companyLogo}/>*/}
+                        <img className={classes.photo} src={companyLogo}/>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -157,29 +173,31 @@ function Navbar() {
                         >
                             Contact
                         </Button>
-                    </Box>
-                    <Box sx={{ flexGrow: 1 , marginLeft:'auto' }}>
                         <Button
+                            to='youraccount'
                             sx={{ my: 2, color: 'white', display: 'block' }}
-                            onClick={handleLogout}
+                            component={NavLink}
                         >
-                            Log out
+                            Your Account
                         </Button>
                     </Box>
-                    <Box sx={{ flexGrow: 0 , marginLeft:'10px' , marginRight:'10px' }}>
-                    <div>
-                        Hi , {nameFromEmail} . Welcome back
+                        <Box sx={{ flexGrow: 0, marginLeft:'auto', display: { xs: 'none', md: 'flex' } }}>
+                            <Tooltip title={displayName}>
+                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                    <Avatar alt={displayName} src={userContext?.photoURL}/>
+                                </IconButton>
+                            </Tooltip>
+                            <Box sx={{ flexGrow: 0 , marginTop:3 , marginLeft:2 , marginRight:2 }}>
 
-
-                    </div>
-                    </Box>
-                    <Box sx={{flexGrow: 0}}>
-                        <Tooltip title={userContext?.email}>
-                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                <Avatar alt={userContext?.email} src="/static/images/avatar/2.jpg"/>
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
+                                Hi , {displayName} . Welcome back
+                            </Box>
+                            <Button
+                                sx={{my: 2, color: 'white', display: 'block'}}
+                                onClick={handleLogout}
+                            >
+                                Log out
+                            </Button>
+                        </Box>
                 </Toolbar>
             </Container>
         </AppBar>
